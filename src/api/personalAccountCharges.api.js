@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const personalAccountChargeApi = createApi({
   reducerPath: 'personalAccountChargeApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5001/personal-account-charge',
+    baseUrl: 'http://localhost:5004/personal-account-charge',
   }),
   endpoints: (builder) => ({
     getAllPersonalAccountCharges: builder.query({

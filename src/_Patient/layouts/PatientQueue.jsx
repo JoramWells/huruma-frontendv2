@@ -8,7 +8,7 @@ import {
 // import axios from "axios"
 import {
   FaAudible,
-  FaBoxOpen, FaFileDownload, FaHandshake, FaPrint, FaUserNurse,
+  FaBoxOpen, FaEye, FaFileDownload, FaHandshake, FaPrint, FaUserNurse,
 } from 'react-icons/fa';
 import { useCallback, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -115,6 +115,14 @@ const PatientQueue = () => {
           </HStack>
         ),
       },
+      {
+        header: 'act',
+        cell: () => (
+          <HStack>
+            <FaEye />
+          </HStack>
+        ),
+      },
     ],
 
     [navigate],
@@ -146,7 +154,7 @@ const PatientQueue = () => {
         <BreadCrumbNav link="/add-patient?type=admission" />
 
         <HStack
-          w="99%"
+          w="full"
           justifyContent="space-between"
           bgColor="white"
           p={2}
@@ -156,7 +164,7 @@ const PatientQueue = () => {
         >
           <Text
             fontSize="16px"
-            fontWeight="bold"
+            // fontWeight="bold"
           >
             Patients Queue
             <span style={{
@@ -176,8 +184,9 @@ const PatientQueue = () => {
             <Button
               leftIcon={<FaPrint />}
               size="sm"
+              fontWeight="normal"
             >
-              Print Report
+              Print
 
             </Button>
 

@@ -105,8 +105,8 @@ const Appointments = () => {
 
       },
       {
-        header: 'Payment Details',
-        accessorKey: 'doctor_id',
+        header: 'Charges',
+        accessorKey: 'charges',
         cell: (props) => <Text>{props.getValue()}</Text>,
         size: 200,
 
