@@ -102,6 +102,7 @@ import ConfirmPatientCharges from './_Charges/layouts/ConfirmPatientCharges';
 import BillTransport from './_Charges/layouts/BillTransport';
 import AdmissionProfile from './_Admission/layouts/AdmissionProfile';
 import AddPatientBedAllocation from './_Admission/layouts/AddPatientBedAllocation.jsx';
+import RadiologyDetails from './_Radiology/layouts/RadiologyDetails';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -352,6 +353,7 @@ function App() {
 
             {/* radiology */}
             <Route path="/radiology-requests" element={<Radiology />} />
+            <Route path="/radiology-details/:id" element={<RadiologyDetails />} />
             <Route path="/add-radiology-request/:id" element={<AddRadiologyRequest />} />
 
             <Route path="/add-subitem" element={<AddSubItem />} />
