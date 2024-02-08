@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-unused-vars */
@@ -7,12 +8,18 @@ import {
 } from '@chakra-ui/react';
 import moment from 'moment/moment';
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FaChevronCircleDown, FaEllipsisH } from 'react-icons/fa';
 import DataTable2 from '../../components/tables/DataTable';
+import { useGetAppointmentDetailByIDQuery } from '../../api/appointments.api';
 
-const PatientDetailAppointment = ({ data }) => {
+const AppointmentsTab = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  //   get patient_id from search params
+  const patient_id = searchParams.get('patient_id');
+  const { data: appointmentsData } = useGetAppointmentDetailByIDQuery(patient_id);
   const columns = useMemo(
     () => [
       {
@@ -67,6 +74,22 @@ const PatientDetailAppointment = ({ data }) => {
       spacing="0"
     >
       <HStack
+        w="full"
+        justify="flex-end"
+      >
+        <Button
+          size="sm"
+          border="1px"
+          borderColor="gray.500"
+        //   rounded="full"
+          backgroundColor="blue.50"
+        //   color="blue.500"
+        >
+          Create Appointment
+        </Button>
+
+      </HStack>
+      <HStack
         w="98%"
         justifyContent="space-between"
         bgColor="white"
@@ -86,10 +109,6 @@ const PatientDetailAppointment = ({ data }) => {
             py={2}
             transition="all 0.2s"
             borderRadius="md"
-          // borderWidth="1px"
-          // _hover={{ bg: 'gray.400' }}
-          // _expanded={{ bg: 'blue.400' }}
-          // _focus={{ boxShadow: 'outline' }}
           >
             <FaEllipsisH />
           </MenuButton>
@@ -101,14 +120,11 @@ const PatientDetailAppointment = ({ data }) => {
             <MenuDivider />
             <MenuItem
               color="green.500"
-            // bgColor="green.50"
-            // fontWeight="bold"
             >
               Paid
             </MenuItem>
             <MenuItem
               color="red.500"
-            // bgColor="red.50"
             >
               Unpaid
             </MenuItem>
@@ -120,7 +136,7 @@ const PatientDetailAppointment = ({ data }) => {
       >
         <DataTable2
           columns={columns}
-          data={data}
+          data={appointmentsData}
           hasSearch={false}
           isTableHeight={false}
         />
@@ -129,4 +145,4 @@ const PatientDetailAppointment = ({ data }) => {
   );
 };
 
-export default PatientDetailAppointment;
+export default AppointmentsTab;

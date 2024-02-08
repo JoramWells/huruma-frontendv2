@@ -115,14 +115,14 @@ const PatientQueue = () => {
           </HStack>
         ),
       },
-      {
-        header: 'act',
-        cell: () => (
-          <HStack>
-            <FaEye />
-          </HStack>
-        ),
-      },
+      // {
+      //   header: 'act',
+      //   cell: () => (
+      //     <HStack>
+      //       <FaEye />
+      //     </HStack>
+      //   ),
+      // },
     ],
 
     [navigate],

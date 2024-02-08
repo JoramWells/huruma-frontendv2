@@ -108,6 +108,7 @@ const PersonalDetail = ({
 
                 <FormLabel
                   fontSize="14px"
+                  textTransform="uppercase"
                 >
                   First Name
 

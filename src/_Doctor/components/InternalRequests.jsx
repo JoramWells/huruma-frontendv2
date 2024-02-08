@@ -38,7 +38,7 @@ const InternalRequests = () => {
       w="full"
     >
       <Box
-        width="45%"
+        width="full"
         rounded="lg"
         bgColor="white"
         border="1px"

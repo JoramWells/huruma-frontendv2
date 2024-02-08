@@ -25,6 +25,7 @@ import { useGetInternalPharmacyRequestQuery } from '../../_Pharmacy/api/internal
 import InternalRequests from '../components/InternalRequests';
 import PatientDetailAppointment from '../../_Patient/layouts/PatientDetailAppointment';
 import PatientDetailAdmission from '../../_Patient/layouts/PatientDetailAdmission';
+import AppointmentsTab from '../../_Appointment/components/AppointmentsTab';
 
 const tabList = [
   { id: nanoid(), text: 'Admissions' },
@@ -124,7 +125,7 @@ const Doctor = () => {
           </TabPanel>
           <TabPanel>
             <Text>Appointments</Text>
-            <PatientDetailAppointment data={appointmentsData} />
+            <AppointmentsTab />
           </TabPanel>
           <TabPanel>
             <Text>Bill Exclusion</Text>
