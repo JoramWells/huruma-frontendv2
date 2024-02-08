@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const internalLabRequestsApi = createApi({
   reducerPath: 'internalLabRequestsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5001/internal-lab-requests',
+    baseUrl: 'http://localhost:5005/internal-lab-requests',
   }),
   endpoints: (builder) => ({
     getAllInternalLabRequests: builder.query({

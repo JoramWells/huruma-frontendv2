@@ -53,7 +53,7 @@ import MeasuringUnit from './layouts/MeasuringUnit';
 import AddMeasuringUnit from './layouts/AddMeasuringUnit';
 import ItemCategory from './layouts/ItemCategory';
 import AddItemCategory from './layouts/AddItemCategory';
-import Radiology from './layouts/Radiology';
+import Radiology from './_Radiology/layouts/Radiology';
 import NursingStation from './layouts/NursingStation';
 import Suppliers from './_Supplier/layouts/Suppliers';
 import AddSuppliers from './layouts/AddSuppliers';
@@ -351,7 +351,7 @@ function App() {
             <Route path="/add-item" element={<AddItem />} />
 
             {/* radiology */}
-            <Route path="/radiology" element={<Radiology />} />
+            <Route path="/radiology-requests" element={<Radiology />} />
             <Route path="/add-radiology-request/:id" element={<AddRadiologyRequest />} />
 
             <Route path="/add-subitem" element={<AddSubItem />} />

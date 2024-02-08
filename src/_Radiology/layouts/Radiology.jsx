@@ -8,14 +8,14 @@ import {
 import { FaFileDownload, FaPrint } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo } from 'react';
-import BreadCrumbNav from '../components/BreadCrumbNav';
-import DataTable2 from '../components/tables/DataTable';
-import { getAllRadiologyRequests } from '../_reducers/radiologySlice';
+import BreadCrumbNav from '../../components/BreadCrumbNav';
+import DataTable2 from '../../components/tables/DataTable';
+import { useGetAllInternalLabRequestsQuery } from '../api/internalLabRequests.api';
 
 const Radiology = () => {
   const dispatch = useDispatch();
 
-  const { data } = useSelector((state) => state.radiology);
+  const { data } = useGetAllInternalLabRequestsQuery();
 
   const columnsx = useMemo(
     () => [
@@ -74,9 +74,7 @@ const Radiology = () => {
     //   dispatch(getAllPriceLists())
     // },[dispatch])
 
-  useEffect(() => {
-    dispatch(getAllRadiologyRequests());
-  }, [dispatch]);
+  console.log(subrowData);
 
   return (
     <VStack
@@ -107,7 +105,7 @@ const Radiology = () => {
             >
               {' '}
               (
-              {subrowData.length}
+              {subrowData?.length}
               )
 
             </span>

@@ -181,7 +181,7 @@ const AddRadiologyRequest = () => {
             fontWeight="bold"
             color="gray.700"
           >
-            New Lab Test
+            Radiology REQ.
 
           </Text>
         </HStack>
@@ -259,20 +259,18 @@ const AddRadiologyRequest = () => {
             onChange={(e) => setQuantity(e.target.value)}
           />
         </FormControl>
-        <HStack
+
+        <Button
+          colorScheme="blue"
+          size="sm"
+          onClick={() => handleSubmit(inputValues)}
           w="full"
-          justifyContent="flex-end"
+          h="40px"
         >
-          <Button
-            colorScheme="blue"
-            size="sm"
-            onClick={() => handleSubmit(inputValues)}
-          >
-            {isLoading ? 'loading...' : 'Save'}
+          {isLoading ? 'loading...' : 'Save'}
 
-          </Button>
+        </Button>
 
-        </HStack>
       </VStack>
 
     </VStack>
