@@ -3,7 +3,7 @@
 import { HStack, Text, VStack } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom';
 import { nanoid } from '@reduxjs/toolkit';
-import { useGetProceduresQuery } from '../api/procedureDetails.api';
+import { useGetProceduresQuery } from '../../_Procedure/api/procedureDetails.api';
 import TableSelectRow from './TableSelectRow';
 import IndeterminateCheckbox from './IndeterminateCheckbox';
 import { useGetUserPersonalAccountDetailQuery } from '../../api/personalAccountCharges.api';

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import {
+  Avatar,
   Button,
   FormControl,
   FormLabel,
@@ -9,20 +10,22 @@ import {
 import Select from 'react-select';
 import { useCallback, useEffect, useState } from 'react';
 import moment from 'moment/moment';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import { nanoid } from '@reduxjs/toolkit';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
-import { useGetProceduresQuery } from '../../_Doctor/api/procedureDetails.api';
+import { useGetProceduresQuery } from '../../_Procedure/api/procedureDetails.api';
 import { useAddPersonalAccountChargeMutation } from '../../api/personalAccountCharges.api';
 import { useAddInternalLabRequestMutation } from '../../api/internalLabRequests.api';
+import { useGetAppointmentQuery } from '../../api/appointments.api';
 
 const selectStyles = {
   control: (provided, state) => ({
     ...provided,
     minHeight: '43px',
     height: '43px',
-    backgroundColor: '#F7FAFC',
-    border: 0,
+    // backgroundColor: '#F7FAFC',
+    borderColor: 'gray.200',
     fontSize: '14px',
     // fontWeight: 'bold',
   }),
@@ -48,6 +51,7 @@ const AddRadiologyRequest = () => {
     { isLoading: isLoadingCharges }] = useAddPersonalAccountChargeMutation();
 
   const { data: procedureData } = useGetProceduresQuery();
+  const { data: appointmentData } = useGetAppointmentQuery(id);
 
   const patientID = searchParams.get('patient_id');
 
@@ -56,6 +60,26 @@ const AddRadiologyRequest = () => {
   )), [procedureData]);
 
   const procedureOptions = procedureCallback();
+
+  const breadCrumbData = [
+    {
+      id: nanoid(),
+      title: 'Patients',
+      link: '/patients',
+    },
+    {
+      id: nanoid(),
+      title: `${appointmentData?.patient.first_name} ${appointmentData?.patient.middle_name}`,
+      link: '/',
+      // isCurrentPage: true,
+    },
+    {
+      id: nanoid(),
+      title: 'Radiology Rq.',
+      link: '/',
+      isCurrentPage: true,
+    },
+  ];
 
   useEffect(() => {
     setCost(procedure.cost);
@@ -102,6 +126,8 @@ const AddRadiologyRequest = () => {
     addPersonalAccountCharge(chargesInputValues);
   };
 
+  const navigate = useNavigate();
+
   return (
     <VStack
       w="full"
@@ -109,18 +135,34 @@ const AddRadiologyRequest = () => {
       mt="65px"
       p={3}
     >
-      <BreadCrumbNav addBtn={false} />
+      <HStack
+        w="full"
+        bgColor="white"
+        rounded="lg"
+      >
+        <BreadCrumbNav
+          addBtn={false}
+          breadCrumbData={breadCrumbData}
+        />
+        <Avatar
+          size="sm"
+          color="white"
+          fontWeight="bold"
+          marginLeft="1rem"
+          name={`${appointmentData?.patient?.first_name} ${appointmentData?.patient?.last_name}`}
+        />
 
+      </HStack>
       <VStack
-        w="2xl"
+        w="xl"
         rounded="xl"
         p={4}
         alignItems="flex-start"
         bgColor="white"
         spacing={6}
                 // boxShadow="lg"
-        border="2px"
-        borderStyle="dashed"
+        border="1px"
+        // borderStyle="dashed"
         borderColor="gray.200"
       >
         <HStack
@@ -130,6 +172,7 @@ const AddRadiologyRequest = () => {
         >
           <IconButton
             size="sm"
+            onClick={() => navigate(-1)}
           >
             <FaArrowLeft />
           </IconButton>
@@ -146,9 +189,9 @@ const AddRadiologyRequest = () => {
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
-            color="gray.500"
+            color="gray.700"
           >
-            Select/Search Lab Test
+            Search Lab Test
 
           </FormLabel>
           <Select
@@ -165,7 +208,7 @@ const AddRadiologyRequest = () => {
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
-            color="gray.500"
+            color="gray.700"
           >
             Select Urgency
 
@@ -183,15 +226,15 @@ const AddRadiologyRequest = () => {
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
-            color="gray.500"
+            color="gray.700"
           >
             Cost
 
           </FormLabel>
           <Input
                         // size="lg"
-            bgColor="gray.50"
-            border={0}
+            // bgColor="gray.50"
+            // border={0}
             value={cost}
             onChange={(e) => setCost(e.target.value)}
           />
@@ -202,15 +245,15 @@ const AddRadiologyRequest = () => {
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
-            color="gray.500"
+            color="gray.700"
           >
             Quantity
 
           </FormLabel>
           <Input
                         // size="lg"
-            bgColor="gray.50"
-            border={0}
+            // bgColor="gray.50"
+            // border={0}
             value={quantity}
             type="number"
             onChange={(e) => setQuantity(e.target.value)}

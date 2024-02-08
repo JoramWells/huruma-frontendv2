@@ -12,7 +12,7 @@ import moment from 'moment/moment';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
-import { useGetProceduresQuery } from '../../_Doctor/api/procedureDetails.api';
+import { useGetProceduresQuery } from '../../_Procedure/api/procedureDetails.api';
 import { useAddPersonalAccountChargeMutation } from '../../api/personalAccountCharges.api';
 import { useAddInternalLabRequestMutation } from '../../api/internalLabRequests.api';
 

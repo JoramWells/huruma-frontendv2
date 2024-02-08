@@ -97,7 +97,7 @@ import AddPrescription from './_Medication/layouts/AddPrescription';
 import PatientReport from './_Patient/layouts/PatientReport';
 import AddPatientProcedure from './_Procedure/layouts/AddPatientProcedure';
 import AddLabRequest from './_Lab/layouts/AddLabRequest';
-import AddRadiologyRequest from './_Radiology/components/AddRadiologyRequest';
+import AddRadiologyRequest from './_Radiology/layouts/AddRadiologyRequest';
 import ConfirmPatientCharges from './_Charges/layouts/ConfirmPatientCharges';
 import BillTransport from './_Charges/layouts/BillTransport';
 import AdmissionProfile from './_Admission/layouts/AdmissionProfile';
