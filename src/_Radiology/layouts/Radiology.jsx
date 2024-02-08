@@ -8,61 +8,93 @@ import {
 import { FaFileDownload, FaPrint } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import DataTable2 from '../../components/tables/DataTable';
 import { useGetAllInternalLabRequestsQuery } from '../api/internalLabRequests.api';
+import UserNameAvatar from '../../components/UserNameAvatar';
 
 const Radiology = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { data } = useGetAllInternalLabRequestsQuery();
 
   const columnsx = useMemo(
     () => [
       {
-        header: 'Service Category',
-        accessorKey: 'serviceCategory',
-        cell: (props) => <Text>{props.getValue()}</Text>,
+        header: 'Patient Name',
+        accessorKey: 'patient',
+        cell: (props) => (
+          <Box onClick={() => navigate(`/patient-detail/${props.getValue().patient_id}`)}>
+            <UserNameAvatar
+              fullName={`${props.getValue().first_name} ${props.getValue().middle_name}`}
+            />
+          </Box>
+        ),
 
       },
       {
-        header: 'Service Name',
-        accessorKey: 'serviceName',
-        cell: (props) => <Text>{props.getValue()}</Text>,
+        header: 'Payment Details',
+        accessorKey: 'appointments2',
+        cell: (props) => <Text>{props.getValue().insurance_detail?.insurance_name}</Text>,
         size: 200,
 
       },
       {
-        header: 'Service Cost (Cash)',
-        accessorKey: 'serviceCostCash',
-        cell: (props) => <Text>{props.getValue()}</Text>,
+        header: 'INVESTIGATION REQUESTED',
+        accessorKey: 'procedure_detail',
+        cell: (props) => <Text>{props.getValue().procedure_name}</Text>,
 
       },
       {
-        header: 'Service Cost (Corporate)',
+        header: 'NOTES',
         accessorKey: 'serviceCostCorporate',
         enableSorting: false,
         cell: (props) => <Text>{props.getValue()}</Text>,
 
       },
       {
-        header: 'Service Cost (Insurance)',
-        accessorKey: 'serviceCostInsurance',
+        header: 'PAYMENT STATUS',
+        accessorKey: 'status',
+        enableSorting: false,
+        cell: (props) => <Text>{props.getValue()}</Text>,
+
+      },
+      {
+        header: 'URGENCY',
+        accessorKey: 'urgency',
         enableSorting: false,
         cell: (props) => <Text>{props.getValue()}</Text>,
 
       },
 
       {
-        header: 'Service Cost (Foreigner)',
-        accessorKey: 'serviceCostForeigner',
+        header: 'Action',
+        // accessorKey: 'serviceCostForeigner',
         enableSorting: false,
-        cell: (props) => <Text>{props.getValue()}</Text>,
+        cell: (props) => (
+          <VStack>
+            <Button
+              w="full"
+              size="sm"
+              onClick={() => navigate(`/radiology-details/${props.row.original.lab_request_id}`)}
+            >
+              Post Results
+            </Button>
+            <Button
+              w="full"
+              size="sm"
+            >
+              Referral
+            </Button>
+          </VStack>
+        ),
 
       },
     ],
 
-    [],
+    [navigate],
   );
 
   const subrowData = data
@@ -78,7 +110,7 @@ const Radiology = () => {
 
   return (
     <VStack
-      mt={5}
+      mt="65px"
       w="full"
       bgColor="gray.50"
       p={3}
