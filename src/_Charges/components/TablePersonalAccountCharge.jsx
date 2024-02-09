@@ -13,7 +13,9 @@ import {
 } from '@tanstack/react-table';
 import {
   Button,
+  Divider,
   HStack,
+  IconButton,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -24,6 +26,7 @@ import {
   Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, VStack, useDisclosure,
 } from '@chakra-ui/react';
 import moment from 'moment/moment';
+import { FaTrashAlt } from 'react-icons/fa';
 
 const TablePersonalAccountCharge = ({
   data, column,
@@ -92,6 +95,8 @@ const TablePersonalAccountCharge = ({
 
     <HStack
       alignItems="flex-start"
+      justifyContent="space-between"
+      width="100%"
     >
       <TableContainer
         border="1px"
@@ -102,7 +107,10 @@ const TablePersonalAccountCharge = ({
       >
 
         <Table>
-          <Thead>
+          <Thead
+            bgColor="gray.50"
+            p={4}
+          >
             {tableInstance.getHeaderGroups().map((headerEl) => (
               <Tr key={headerEl.id}>
                 {headerEl.headers.map((columnEl) => (
@@ -190,6 +198,7 @@ const TablePersonalAccountCharge = ({
             <Button
               onClick={() => tableInstance.previousPage()}
               isDisabled={!tableInstance.getCanPreviousPage()}
+              size="sm"
             >
               Prev
 
@@ -197,6 +206,7 @@ const TablePersonalAccountCharge = ({
             <Button
               onClick={() => tableInstance.nextPage()}
               isDisabled={!tableInstance.getCanNextPage()}
+              size="sm"
             >
               Next
 
@@ -214,17 +224,63 @@ const TablePersonalAccountCharge = ({
         rounded="lg"
         w="md"
         borderColor="gray.200"
+        position="relative"
 
       >
-        <Text
-          fontSize="16px"
-          fontWeight="bold"
+        <HStack
+          w="full"
+          // bgColor="gray.100"
+          p={1}
+          rounded="lg"
+          justify="space-between"
         >
-          Total:
-          {totalAmount}
-        </Text>
+          <Text
+            fontSize="16px"
+          >
+            Payment Details
+          </Text>
+
+          <IconButton
+            size="xs"
+            colorScheme="red"
+            // variant="subtle"
+          >
+            <FaTrashAlt />
+          </IconButton>
+        </HStack>
+        <Divider />
+        <HStack
+          w="full"
+          justify="space-between"
+          p="5px"
+        >
+          <Text
+            textTransform="uppercase"
+            fontSize="14px"
+            fontWeight="bold"
+            // color={'gray.'}
+          >
+            Total:
+          </Text>
+          <Text
+            fontSize="16px"
+            fontWeight="bold"
+          >
+            KSH
+            {' '}
+            {totalAmount}
+            {' '}
+            /=
+          </Text>
+        </HStack>
         <Button
+          w="95%"
+          // size="sm"
           colorScheme="green"
+          position="absolute"
+          bottom="8px"
+          left="8px"
+          // right="0px"
           isDisabled={tableInstance
             .getSelectedRowModel().flatRows.length === 0}
           onClick={() => handleData()}

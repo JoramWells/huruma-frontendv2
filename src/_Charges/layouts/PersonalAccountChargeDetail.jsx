@@ -78,8 +78,11 @@ const PersonalAccountChargeDetail = () => {
       cell: (props) => (
         <IconButton
           onClick={onOpen}
+          size="sm"
         >
-          <FaEdit />
+          <FaEdit
+            color="#42A5F5"
+          />
         </IconButton>
       ),
     },
@@ -104,60 +107,32 @@ const PersonalAccountChargeDetail = () => {
       alignItems="center"
       p={3}
     >
-      <BreadCrumbNav />
+
       <HStack
-        bgColor="white"
         w="full"
-        rounded="lg"
-        p={3}
-        border="1px"
-        borderColor="gray.200"
       >
-        {data
-          && (
-            <>
-              <Avatar
-                // name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
-                size="lg"
-                name="jay"
-                color="white"
-                fontWeight="bold"
-              />
-              <VStack alignItems="flex-start">
-                <Text
-                  fontSize="xl"
-                  fontWeight="bold"
-                  color="gray.700"
-                >
-                  {data && data[0]?.patient?.first_name}
-                  {' '}
-                  {/* {data[0]?.patient.middle_name} */}
-                </Text>
-
-                <Text fontSize="lg" color="gray.500">
-                  {moment().diff(data[0]?.patient?.dob, 'years')}
-                  {' '}
-                  years
-                </Text>
-              </VStack>
-            </>
-          )}
-
-      </HStack>
-      <HStack
-        spacing={4}
-        justifyContent="center"
-      >
-        <TablePersonalAccountCharge
-          column={columns}
-          data={data}
-          onOpen={onOpen}
-          onClose={onClose}
-          isOpen={isOpen}
-
+        <BreadCrumbNav
+          addBtn={false}
         />
-
+        {data
+        && (
+        <Avatar
+          name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
+          size="sm"
+          color="white"
+          fontWeight="bold"
+        />
+        )}
       </HStack>
+
+      <TablePersonalAccountCharge
+        column={columns}
+        data={data}
+        onOpen={onOpen}
+        onClose={onClose}
+        isOpen={isOpen}
+      />
+
     </VStack>
   );
 };
