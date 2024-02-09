@@ -167,8 +167,12 @@ const AddPharmacyRequest = () => {
       mt="65px"
       p={3}
     >
-      <HStack>
-        <BreadCrumbNav />
+      <HStack
+        w="full"
+      >
+        <BreadCrumbNav
+          addBtn={false}
+        />
         <Avatar
           name={`${patientData?.patient?.first_name} ${patientData?.patient?.last_name}`}
           size="sm"
@@ -276,7 +280,7 @@ const AddPharmacyRequest = () => {
             <FormControl>
               <FormLabel
                 fontWeight="bold"
-                color="gray.700"
+                // color="gray.700"
                 fontSize="14px"
               >
                 Measuring Unit
@@ -288,8 +292,8 @@ const AddPharmacyRequest = () => {
                 onChange={(e) => setMeasuringUnit(e)}
                 // bgColor="gray.50"
                 // border={0}
-                fontSize="md"
-                fontWeight="bold"
+                fontSize="14px"
+                // fontWeight="bold"
                 // color="gray.700"
               />
             </FormControl>
@@ -297,7 +301,6 @@ const AddPharmacyRequest = () => {
             {/*  */}
             <FormControl>
               <FormLabel
-                // color="gray.700"
                 fontSize="14px"
                 fontWeight="bold"
               >
@@ -310,7 +313,7 @@ const AddPharmacyRequest = () => {
                 onChange={(e) => setCost(e.target.value)}
                 // bgColor="gray.50"
                 // border={0}
-                fontSize="md"
+                fontSize="14px"
                 fontWeight="bold"
                 // color="gray.700"
               />
