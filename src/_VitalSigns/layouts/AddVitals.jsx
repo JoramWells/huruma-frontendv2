@@ -16,14 +16,18 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
-import { useAddAppointmentMutation } from '../../api/appointments.api';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
+import { useAddVitalSignsMutation } from '../api/vitalSigns.api';
 
 const AddVitals = () => {
+  const [searchParams] = useSearchParams();
+  const appointment_id = searchParams.get('appointment_id');
+
+  const { id: patient_id } = useParams();
   const [vitalValues, setVitalValues] = useState({
     temperature: '',
-    pulse_rate: '',
-    respiratory_rate: '',
+    pulseRate: '',
+    respiratoryRate: '',
     systolic: '',
     diastolic: '',
     weight: '',
@@ -34,15 +38,11 @@ const AddVitals = () => {
 
   const navigate = useNavigate();
 
-  const [addAppointment, { isLoading, error }] = useAddAppointmentMutation();
-
-  const [searcParams] = useSearchParams();
-  // const patientId = searcParams.get('patient_id');
-
-  const { id: patientId } = useParams();
+  const [addVitalSigns, { isLoading, error }] = useAddVitalSignsMutation();
 
   const inputValues = {
-    patientId,
+    patient_id,
+    appointment_id,
     ...vitalValues,
   };
 
@@ -144,8 +144,8 @@ const AddVitals = () => {
           <Input
             // size="14px"
             placeholder="Enter Pulse Rate"
-            // value={pulse_rate}
-            onChange={(e) => setVitalValues({ ...vitalValues, pulse_rate: e.target.value })}
+            // value={pulseRate}
+            onChange={(e) => setVitalValues({ ...vitalValues, pulseRate: e.target.value })}
           />
         </FormControl>
 
@@ -160,7 +160,7 @@ const AddVitals = () => {
             // size="lg"
             placeholder="Enter Respiratory Rate"
             // value={respiratory_rate}
-            onChange={(e) => setVitalValues({ ...vitalValues, respiratory_rate: e.target.value })}
+            onChange={(e) => setVitalValues({ ...vitalValues, respiratoryRate: e.target.value })}
           />
         </FormControl>
 
@@ -262,7 +262,7 @@ const AddVitals = () => {
           size="md"
           width="full"
           colorScheme="blue"
-          onClick={() => addAppointment(inputValues)}
+          onClick={() => addVitalSigns(inputValues)}
         >
           {isLoading ? 'loading' : 'Save'}
         </Button>

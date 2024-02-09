@@ -42,6 +42,8 @@ const VitalSignsAllergies = () => {
     data, error, isLoading, isFetching, isSuccess,
   } = useGetAppointmentsQuery();
 
+  console.log(data);
+
   const columnsx = useMemo(
     () => [
       {
@@ -86,7 +88,10 @@ const VitalSignsAllergies = () => {
                   variant="outline"
                   colorScheme="orange"
                   size="xs"
-                  onClick={() => navigate(`/add-vitals/${props.row.original.patient_id}`)}
+                  onClick={() => navigate({
+                    pathname: `/add-vitals/${props.row.original.patient_id}`,
+                    search: `?appointment_id=${props.row.original.appointment_id}`,
+                  })}
                 >
                   RECORD
                 </Button>

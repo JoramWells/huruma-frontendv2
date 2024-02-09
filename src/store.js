@@ -42,6 +42,7 @@ import { internalPharmacyRequestApi } from './_Pharmacy/api/internalPharmacyRequ
 import { wardTypesApi } from './api/wardType.api';
 import { admissionCategoryApi } from './api/admissionCategory.api';
 import { wardBedsApi } from './api/wardBed.api';
+import { vitalSignsApi } from './_VitalSigns/api/vitalSigns.api';
 
 export const store = configureStore({
   reducer: {
@@ -88,6 +89,7 @@ export const store = configureStore({
     [wardTypesApi.reducerPath]: wardTypesApi.reducer,
     [wardBedsApi.reducerPath]: wardBedsApi.reducer,
     [admissionCategoryApi.reducerPath]: admissionCategoryApi.reducer,
+    [vitalSignsApi.reducerPath]: vitalSignsApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(patientsApi.middleware)
@@ -133,5 +135,6 @@ export const store = configureStore({
     .concat(wardTypesApi.middleware)
     .concat(wardBedsApi.middleware)
     .concat(admissionCategoryApi.middleware)
+    .concat(vitalSignsApi.middleware)
   ,
 });
