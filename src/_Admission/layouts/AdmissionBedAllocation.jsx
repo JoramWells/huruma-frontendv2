@@ -11,7 +11,7 @@ import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import DataTable2 from '../../components/tables/DataTable';
-import { fetchAllAdmission } from '../../_reducers/admissionSlice';
+// import { fetchAllAdmission } from '../../_reducers/admissionSlice';
 
 const Admission = () => {
   const dispatch = useDispatch();
@@ -63,9 +63,9 @@ const Admission = () => {
   //   dispatch(getAllPriceLists())
   // },[dispatch])
 
-  useEffect(() => {
-    dispatch(fetchAllAdmission());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAllAdmission());
+  // }, [dispatch]);
 
   return (
     <VStack

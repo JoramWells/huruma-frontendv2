@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   Box,
   Button,
@@ -13,14 +14,13 @@ import { FaArrowLeft, FaPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { addItemType } from '../../_reducers/itemTypeSlice';
 
 const AddAdmissionCategory = () => {
   const [itemTypeName, setItemType] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading } = useSelector((state) => state.itemType);
+  // const { loading } = useSelector((state) => state.itemType);
 
   const inputValues = {
     itemTypeName,
@@ -65,9 +65,10 @@ const AddAdmissionCategory = () => {
             size="lg"
             leftIcon={<FaPlus />}
             colorScheme="blue"
-            onClick={() => dispatch(addItemType(inputValues))}
+            // onClick={() => dispatch(addItemType(inputValues))}
           >
-            {loading ? 'loading...' : 'Save Item Type'}
+            {/* {loading ? 'loading...' : 'Save Item Type'} */}
+            Save
           </Button>
         </HStack>
       </Box>

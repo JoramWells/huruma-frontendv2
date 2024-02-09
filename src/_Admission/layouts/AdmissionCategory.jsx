@@ -11,14 +11,16 @@ import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import DataTable2 from '../../components/tables/DataTable';
-import { fetchAllAdmissionCategory } from '../../_reducers/admissionCategorySlice';
+// import { fetchAllAdmissionCategory } from '../../_reducers/admissionCategorySlice';
 
 const AdmissionCategory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data } = useSelector((state) => state.admissionCategory);
+  // const { data } = useSelector((state) => state.admissionCategory);
 
+  const data = []
+  
   const columnsx = useMemo(
     () => [
       {
