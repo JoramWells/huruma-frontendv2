@@ -76,6 +76,12 @@ const PatientQueue = () => {
 
       },
       {
+        header: 'Eligibility',
+        cel: (props) => (
+          <Button>NOT RECORDED</Button>
+        ),
+      },
+      {
         header: 'Vital Signs',
         // accessorKey: 'tem',
         cell: (props) => (
@@ -164,7 +170,7 @@ const PatientQueue = () => {
         >
           <Text
             fontSize="16px"
-            // fontWeight="bold"
+          // fontWeight="bold"
           >
             Patients Queue
             <span style={{
