@@ -101,8 +101,9 @@ import AddRadiologyRequest from './_Radiology/layouts/AddRadiologyRequest';
 import ConfirmPatientCharges from './_Charges/layouts/ConfirmPatientCharges';
 import BillTransport from './_Charges/layouts/BillTransport';
 import AdmissionProfile from './_Admission/layouts/AdmissionProfile';
-import AddPatientBedAllocation from './_Admission/layouts/AddPatientBedAllocation.jsx';
+// import AddPatientBedAllocation from './_Admission/layouts/AddPatientBedAllocation';
 import RadiologyDetails from './_Radiology/layouts/RadiologyDetails';
+import VitalSignsAllergies from './_VitalSigns/layouts/VitalSignsAllergies';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -147,7 +148,7 @@ const LabTemplates = lazy(() => import('./_Lab/layouts/LabTemplates'));
 const PharmacyRequest = lazy(() => import('./_Pharmacy/layouts/PharmacyRequest'));
 
 const AddLabTest = lazy(() => import('./_Lab/layouts/AddLabTest'));
-const AddVitals = lazy(() => import('./layouts/AddVitals'));
+const AddVitals = lazy(() => import('./_VitalSigns/layouts/AddVitals'));
 const AppointmentDetail = lazy(() => import('./_Appointment/layouts/AppointmentDetail'));
 const Admission = lazy(() => import('./_Admission/layouts/Admission'));
 const AdmissionCategory = lazy(() => import('./_Admission/layouts/AdmissionCategory'));
@@ -259,7 +260,9 @@ function App() {
             <Route path="/patient-reports" element={<PatientReport />} />
             <Route path="/add-patient-procedure/:id" element={<AddPatientProcedure />} />
             <Route path="/confirm-patient-charges" element={<ConfirmPatientCharges />} />
-            <Route path="/add-patient-bed-allocation" element={<AddPatientBedAllocation />} />
+            {/* <Route path="/add-patient-bed-allocation"
+
+            element={<AddPatientBedAllocation />} /> */}
             <Route path="/bill-transport" element={<BillTransport />} />
 
             <Route path="/maternity" element={<MaternityServices />} />
@@ -307,8 +310,6 @@ function App() {
 
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/appointment-detail/:id" element={<AppointmentDetail />} />
-
-            <Route path="/add-vitals/:id" element={<AddVitals />} />
 
             <Route path="/suppliers" element={<Suppliers />} />
             <Route path="/add-suppliers" element={<AddSuppliers />} />
@@ -398,6 +399,9 @@ function App() {
             <Route path="/admin-group-privileges-details/:id" element={<GroupPrivilegesDetails />} />
 
             <Route path="/hospital-stores" element={<HospitalStores />} />
+
+            <Route path="/vital-signs" element={<VitalSignsAllergies />} />
+            <Route path="/add-vitals/:id" element={<AddVitals />} />
 
           </Routes>
         </Suspense>

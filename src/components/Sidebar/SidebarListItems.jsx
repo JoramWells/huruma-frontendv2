@@ -186,7 +186,7 @@ const SidebarListItems = () => {
       />
 
       <SidebarItemLink
-        selected={pathname === '/nursing-station' || pathname.includes('triaged-patients')}
+        selected={pathname === '/nursing-station' || pathname.includes('triaged-patients') || pathname.includes('/vital-signs') || pathname.includes('/add-vitals')}
         onClick={onToggle}
         text="Nursing Station"
         link="/nursing-station"
@@ -196,7 +196,7 @@ const SidebarListItems = () => {
           { id: nanoid(), title: 'Pharmacy Requests', link: '/pharmeuticals' },
           { id: nanoid(), title: 'Procedure Reports', link: '/pharmeuticals' },
           { id: nanoid(), title: 'Triaged Patients', link: '/triaged-patients' },
-          { id: nanoid(), title: 'Vital Signs & Allergies', link: '/services-price-list' },
+          { id: nanoid(), title: 'Vital Signs & Allergies', link: '/vital-signs' },
 
         ]}
         icon={<FaUserNurse size={20} />}

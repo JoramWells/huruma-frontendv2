@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import {
+  Avatar,
   Box,
   Button,
   FormControl,
@@ -14,7 +15,9 @@ import {
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-import { useAddAppointmentMutation } from '../api/appointments.api';
+import { nanoid } from '@reduxjs/toolkit';
+import { useAddAppointmentMutation } from '../../api/appointments.api';
+import BreadCrumbNav from '../../components/BreadCrumbNav';
 
 const AddVitals = () => {
   const [vitalValues, setVitalValues] = useState({
@@ -43,37 +46,87 @@ const AddVitals = () => {
     ...vitalValues,
   };
 
+  const breadCrumbData = [
+    {
+      id: nanoid(),
+      title: 'Patients',
+      link: '/patients',
+    },
+    {
+      id: nanoid(),
+      // title: `${data?.patient.first_name} ${data?.patient.middle_name}`,
+      title: 'Nursing Station',
+      link: '/nursing-station',
+    },
+    {
+      id: nanoid(),
+      // title: `${data?.patient.first_name} ${data?.patient.middle_name}`,
+      title: 'Add Vitals',
+      link: '/',
+      isCurrentPage: true,
+    },
+  ];
+
   return (
     <VStack
       w="full"
       h="100vh"
-      alignItems="center"
-      justifyContent="center"
+      // alignItems="center"
+      // justifyContent="center"
       bgColor="gray.50"
-      mt="40px"
+      mt="60px"
+      p={3}
     >
-      <Box
-        w="50%"
+      <HStack
+        w="full"
+        bgColor="white"
+      >
+        <BreadCrumbNav
+          addBtn={false}
+          breadCrumbData={breadCrumbData}
+        />
+        <Avatar
+          // name={`${data?.patient?.first_name} ${data?.patient?.last_name}`}
+          name="jay"
+          size="sm"
+          fontWeight="bold"
+        />
+      </HStack>
+      <VStack
+        w="45%"
         bgColor="white"
         // boxShadow="lg"
         p={5}
         rounded="lg"
         border="1px"
         borderColor="gray.200"
+        spacing="1.3rem"
       >
         <HStack w="full" justifyContent="space-between">
-          <IconButton onClick={() => navigate('/admin-departments')}>
+          <IconButton
+            size="sm"
+            onClick={() => navigate(-1)}
+          >
             <FaArrowLeft />
           </IconButton>
-          <Text fontSize="xl" fontWeight="semibold" color="gray.500">
+          <Text
+            fontSize="16px"
+            fontWeight="semibold"
+            // color="gray.500"
+          >
             Add Vital Signs
           </Text>
         </HStack>
         {/* sub item */}
-        <FormControl mt={5}>
-          <FormLabel fontSize="lg">Temperature (°C)</FormLabel>
+        <FormControl>
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            Temperature (°C)
+          </FormLabel>
           <Input
-            size="lg"
+            // size="lg"
             placeholder="Enter Temperature"
             // value={temperature}
             onChange={(e) => setVitalValues({ ...vitalValues, temperature: e.target.value })}
@@ -81,20 +134,30 @@ const AddVitals = () => {
         </FormControl>
 
         {/* item code prefix */}
-        <FormControl mt={5}>
-          <FormLabel fontSize="lg">Pulse Rate (BPMs)</FormLabel>
+        <FormControl>
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            Pulse Rate (BPMs)
+          </FormLabel>
           <Input
-            size="lg"
+            // size="14px"
             placeholder="Enter Pulse Rate"
             // value={pulse_rate}
             onChange={(e) => setVitalValues({ ...vitalValues, pulse_rate: e.target.value })}
           />
         </FormControl>
 
-        <FormControl mt={5}>
-          <FormLabel fontSize="lg">Respiratory Rate</FormLabel>
+        <FormControl>
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            Respiratory Rate
+          </FormLabel>
           <Input
-            size="lg"
+            // size="lg"
             placeholder="Enter Respiratory Rate"
             // value={respiratory_rate}
             onChange={(e) => setVitalValues({ ...vitalValues, respiratory_rate: e.target.value })}
@@ -102,20 +165,29 @@ const AddVitals = () => {
         </FormControl>
 
         <HStack w="full">
-          <FormControl mt={5}>
-            <FormLabel fontSize="lg">Systolic Rate (mmHg)</FormLabel>
+          <FormControl>
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+            >
+              Systolic Rate (mmHg)
+            </FormLabel>
             <Input
-              size="lg"
+              // size="lg"
               placeholder="Enter Systolic Rate"
               // value={systolic}
               onChange={(e) => setVitalValues({ ...vitalValues, systolic: e.target.value })}
             />
           </FormControl>
-          <FormControl mt={5}>
+          <FormControl>
 
-            <FormLabel fontSize="lg">Diastolic value (mmHg)</FormLabel>
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+            >
+              Diastolic value (mmHg)
+            </FormLabel>
             <Input
-              size="lg"
               placeholder="Enter Diastolic value"
               // value={diastolic}
               onChange={(e) => setVitalValues({ ...vitalValues, diastolic: e.target.value })}
@@ -124,21 +196,30 @@ const AddVitals = () => {
 
         </HStack>
         <HStack w="full">
-          <FormControl mt={5}>
+          <FormControl>
 
-            <FormLabel fontSize="lg">Weight (Kg)</FormLabel>
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+            >
+              Weight (Kg)
+            </FormLabel>
             <Input
-              size="lg"
               placeholder="Enter Weight"
               // value={weight}
               onChange={(e) => setVitalValues({ ...vitalValues, weight: e.target.value })}
             />
           </FormControl>
-          <FormControl mt={5}>
+          <FormControl>
 
-            <FormLabel fontSize="lg">Height (m)</FormLabel>
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+            >
+              Height (m)
+            </FormLabel>
             <Input
-              size="lg"
+              // size="lg"
               placeholder="Enter Height"
               // value={height}
               onChange={(e) => setVitalValues({ ...vitalValues, height: e.target.value })}
@@ -146,37 +227,46 @@ const AddVitals = () => {
           </FormControl>
         </HStack>
 
-        <FormControl mt={5}>
+        <FormControl>
 
-          <FormLabel fontSize="lg">BMI (Kg/m²)</FormLabel>
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            BMI (Kg/m²)
+          </FormLabel>
           <Input
-            size="lg"
+            // size="lg"
             placeholder="Enter BMI"
             // value={bmi}
             onChange={(e) => setVitalValues({ ...vitalValues, bmi: e.target.value })}
           />
         </FormControl>
-        <FormControl mt={5}>
+        <FormControl>
 
-          <FormLabel fontSize="lg">SP02 (%)</FormLabel>
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            SP02 (%)
+          </FormLabel>
           <Input
-            size="lg"
             placeholder="Enter SP02"
             // value={sp02}
             onChange={(e) => setVitalValues({ ...vitalValues, sp02: e.target.value })}
           />
         </FormControl>
 
-        <HStack mt={5} w="full" justifyContent="end">
-          <Button
-            size="md"
-            colorScheme="blue"
-            onClick={() => addAppointment(inputValues)}
-          >
-            {isLoading ? 'loading' : 'Save'}
-          </Button>
-        </HStack>
-      </Box>
+        {/* save btn */}
+        <Button
+          size="md"
+          width="full"
+          colorScheme="blue"
+          onClick={() => addAppointment(inputValues)}
+        >
+          {isLoading ? 'loading' : 'Save'}
+        </Button>
+      </VStack>
     </VStack>
   );
 };
