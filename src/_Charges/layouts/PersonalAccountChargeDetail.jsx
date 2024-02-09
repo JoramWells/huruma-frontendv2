@@ -94,7 +94,7 @@ const PersonalAccountChargeDetail = () => {
       ),
     },
 
-  ], []);
+  ], [onOpen]);
   return (
     <VStack
       w="full"
@@ -117,8 +117,9 @@ const PersonalAccountChargeDetail = () => {
           && (
             <>
               <Avatar
-                name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
+                // name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
                 size="lg"
+                name="jay"
                 color="white"
                 fontWeight="bold"
               />
@@ -128,9 +129,9 @@ const PersonalAccountChargeDetail = () => {
                   fontWeight="bold"
                   color="gray.700"
                 >
-                  {data[0]?.patient.first_name}
+                  {data && data[0]?.patient?.first_name}
                   {' '}
-                  {data[0]?.patient.middle_name}
+                  {/* {data[0]?.patient.middle_name} */}
                 </Text>
 
                 <Text fontSize="lg" color="gray.500">
