@@ -346,13 +346,17 @@ const SidebarListItems = () => {
       />
 
       <SidebarItemLink
-        selected={pathname === '/radiology' || pathname.includes('/add-radiology-request')}
+        selected={pathname === '/radiology' || pathname.includes('/add-radiology-request')
+          || pathname.includes('/radiology-details')
+          || pathname.includes('/radiology-visits')
+          || pathname.includes('/add-radiology-results')}
         onClick={onToggle}
         text="Radiology"
         link="/radiology"
         itemList={[
           { id: nanoid(), title: 'Radiology Requests', link: '/radiology-requests' },
           { id: nanoid(), title: 'Radiology Visits', link: '/radiology-visits' },
+          { id: nanoid(), title: 'Radiology Test Prices', link: '/radiology-test-prices' },
         ]}
         icon={<FaRadiation size={20} />}
       />

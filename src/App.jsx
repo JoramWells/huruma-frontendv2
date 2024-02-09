@@ -104,6 +104,8 @@ import AdmissionProfile from './_Admission/layouts/AdmissionProfile';
 // import AddPatientBedAllocation from './_Admission/layouts/AddPatientBedAllocation';
 import RadiologyDetails from './_Radiology/layouts/RadiologyDetails';
 import VitalSignsAllergies from './_VitalSigns/layouts/VitalSignsAllergies';
+import AddRadiologyResults from './_Radiology/layouts/AddRadiologyResults';
+import RadiologyVisits from './_Radiology/layouts/RadiologyVisits';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -356,6 +358,8 @@ function App() {
             <Route path="/radiology-requests" element={<Radiology />} />
             <Route path="/radiology-details/:id" element={<RadiologyDetails />} />
             <Route path="/add-radiology-request/:id" element={<AddRadiologyRequest />} />
+            <Route path="/add-radiology-results/:id" element={<AddRadiologyResults />} />
+            <Route path="/radiology-visits" element={<RadiologyVisits />} />
 
             <Route path="/add-subitem" element={<AddSubItem />} />
             <Route path="/item-type" element={<ItemType />} />
