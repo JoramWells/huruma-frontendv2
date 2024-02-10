@@ -19,13 +19,13 @@ import moment from 'moment/moment';
 import { FaPlus } from 'react-icons/fa';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import VitalSigns from '../components/VitalSigns';
-import ProceduresTab from '../components/ProceduresTab';
 import { useGetAppointmentDetailByIDQuery, useGetAppointmentQuery } from '../../api/appointments.api';
 import { useGetInternalPharmacyRequestQuery } from '../../_Pharmacy/api/internalPharmacyRequest.api';
 import InternalRequests from '../components/InternalRequests';
 import PatientDetailAppointment from '../../_Patient/layouts/PatientDetailAppointment';
 import PatientDetailAdmission from '../../_Patient/layouts/PatientDetailAdmission';
 import AppointmentsTab from '../../_Appointment/components/AppointmentsTab';
+import ProcedureTab from '../../_Procedure/components/ProcedureTab';
 
 const tabList = [
   { id: nanoid(), text: 'Admissions' },
@@ -120,55 +120,34 @@ const Doctor = () => {
 
         </TabList>
         <TabPanels>
+
+          {/* patient admission panel */}
           <TabPanel>
             <PatientDetailAdmission data={appointmentsData} />
           </TabPanel>
+
+          {/* appointments panel */}
           <TabPanel>
             <Text>Appointments</Text>
             <AppointmentsTab />
           </TabPanel>
+
+          {/* bill exclusion panel */}
           <TabPanel>
             <Text>Bill Exclusion</Text>
           </TabPanel>
+
+          {/* internal lab requests panel */}
           <TabPanel>
             <InternalRequests />
           </TabPanel>
+
+          {/* procedure panel */}
           <TabPanel>
-
-            {/* Procedure Header */}
-            <VStack>
-              <HStack
-                w="80%"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-
-                <Text
-                  fontSize="xl"
-                  color="gray.700"
-                >
-                  Patient Procedures
-
-                </Text>
-                <Button
-                  colorScheme="blue"
-                  leftIcon={<FaPlus />}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => navigate({
-                    pathname: `/add-patient-procedure/${id}`,
-                    search: `?patient_id=${patient_id}`,
-                  })}
-                >
-                  Add New
-
-                </Button>
-              </HStack>
-            </VStack>
-
-            <ProceduresTab />
-
+            <ProcedureTab />
           </TabPanel>
+
+          {/* vital signs panel */}
           <TabPanel>
             <VitalSigns data={data} />
           </TabPanel>

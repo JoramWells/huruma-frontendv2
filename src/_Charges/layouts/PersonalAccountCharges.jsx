@@ -89,6 +89,7 @@ const PersonalAccountCharges = () => {
           >
             <IconButton
               color="gray.500"
+              size="sm"
               onClick={() => { navigate(`/personal-account-charge-detail/${props.row.original.patient_id}`); }}
             >
               <FaEllipsisV />
@@ -129,10 +130,13 @@ const PersonalAccountCharges = () => {
           rounded="lg"
           mt={2}
         >
-          <Text fontSize="xl" fontWeight="bold">
+          <Text
+            fontSize="16px"
+            fontWeight="bold"
+          >
             Patients Charges
             <span style={{
-              fontSize: '18px',
+              fontSize: '16px',
               // fontWeight: 'normal',
               color: 'gray',
             }}
