@@ -19,11 +19,18 @@ import { useGetAppointmentsQuery } from '../../api/appointments.api';
 const UserNameAvatar = ({ fullName }) => (
   <HStack>
     <Avatar
-      // size="sm"
+      size="xs"
       name={fullName}
       color="white"
+      fontWeight="bold"
     />
-    <Text>{fullName}</Text>
+    <Text
+      fontSize="14px"
+      fontWeight="bold"
+      textTransform="uppercase"
+    >
+      {fullName}
+    </Text>
   </HStack>
 );
 
@@ -77,11 +84,12 @@ const PatientVisits = () => {
           <Button
             leftIcon={<FaEye />}
             onClick={() => navigate({
-              pathname: `/patient-prescription/${props.row.original.patient_id}`,
+              pathname: `/pharmacy-drugs-requested/${props.row.original.patient_id}`,
               search: `?appointment_id=${props.row.original.appointment_id}`,
             })}
+            size="sm"
           >
-            View Prescription
+            Prescription
           </Button>
         ),
 

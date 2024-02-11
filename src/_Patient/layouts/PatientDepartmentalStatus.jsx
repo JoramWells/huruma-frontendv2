@@ -8,8 +8,7 @@ import {
 } from '@chakra-ui/react';
 // import axios from "axios"
 import {
-  FaAudible,
-  FaBoxOpen, FaFileDownload, FaHandshake, FaPrint, FaSpeakerDeck, FaUserNurse,
+  FaBoxOpen,
 } from 'react-icons/fa';
 import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -21,7 +20,7 @@ import { useGetAppointmentsQuery } from '../../api/appointments.api';
 const UserNameAvatar = ({ fullName }) => (
   <HStack>
     <Avatar
-      // size="sm"
+      size="sm"
       name={fullName}
       color="white"
     />
@@ -153,36 +152,6 @@ const PatientDepartmentalStatus = () => {
       <Box bgColor="white" w="full">
         <BreadCrumbNav link="/add-patient" />
 
-        <HStack
-          w="100%"
-          justifyContent="space-between"
-          bgColor="white"
-          p={3}
-          rounded="lg"
-          mt={2}
-        >
-          <Text fontSize="xl" fontWeight="bold">
-            Patients Departmental Status
-            <span style={{
-              fontSize: '18px',
-              // fontWeight: 'normal',
-              color: 'gray',
-            }}
-            >
-              {' '}
-              (
-              {filteredData?.length}
-              )
-
-            </span>
-          </Text>
-          <HStack>
-            <Button leftIcon={<FaPrint />}>Print Report</Button>
-
-            <Button leftIcon={<FaFileDownload />}>Download</Button>
-
-          </HStack>
-        </HStack>
         {filteredData?.length === 0 ? (
           <VStack
             p={2}

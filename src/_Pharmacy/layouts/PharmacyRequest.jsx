@@ -20,11 +20,17 @@ import { useGetAllInternalPharmacyRequestsQuery } from '../api/internalPharmacyR
 const UserNameAvatar = ({ fullName }) => (
   <HStack>
     <Avatar
-      size="sm"
+      size="xs"
       name={fullName}
       color="white"
+      fontWeight="bold"
     />
-    <Text>{fullName}</Text>
+    <Text
+      fontWeight="bold"
+      textTransform="uppercase"
+    >
+      {fullName}
+    </Text>
   </HStack>
 );
 
@@ -68,7 +74,7 @@ const PharmacyRequest = () => {
       },
       {
         header: 'Action',
-        cell: (props) => <Button onClick={() => navigate(`/pharmacy-drugs-requested/${props.row.original.patient.patient_id}`)}>Drugs Requested</Button>,
+        cell: (props) => <Button size="sm" onClick={() => navigate(`/pharmacy-drugs-requested/${props.row.original.patient.patient_id}`)}>Drugs Requested</Button>,
       },
     ],
 
@@ -100,36 +106,6 @@ const PharmacyRequest = () => {
       <Box bgColor="white" w="full">
         <BreadCrumbNav link="/add-patient" />
 
-        <HStack
-          w="100%"
-          justifyContent="space-between"
-          bgColor="white"
-          p={3}
-          rounded="lg"
-          mt={2}
-        >
-          <Text fontSize="xl" fontWeight="bold">
-            Internal Pharmacy Request
-            <span style={{
-              fontSize: '18px',
-              // fontWeight: 'normal',
-              color: 'gray',
-            }}
-            >
-              {' '}
-              (
-              {filteredData?.length}
-              )
-
-            </span>
-          </Text>
-          <HStack>
-            <Button leftIcon={<FaPrint />}>Print Report</Button>
-
-            <Button leftIcon={<FaFileDownload />}>Download</Button>
-
-          </HStack>
-        </HStack>
         {filteredData?.length === 0 ? (
           <VStack p={5}>
 

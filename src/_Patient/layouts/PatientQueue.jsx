@@ -19,9 +19,10 @@ import { useGetAppointmentsQuery } from '../../api/appointments.api';
 const UserNameAvatar = ({ fullName }) => (
   <HStack>
     <Avatar
-      size="sm"
+      size="xs"
       name={fullName}
       color="white"
+      fontWeight="bold"
     />
     <Text
       textTransform="uppercase"
