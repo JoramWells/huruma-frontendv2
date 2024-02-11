@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   Avatar,
-  Box, Button, HStack, Text, VStack,
+  Box, Button, HStack, SkeletonCircle, Text, VStack,
 } from '@chakra-ui/react';
 import moment from 'moment/moment';
 import { useGetInternalPharmacyRequestQuery } from '../api/internalPharmacyRequest.api';
@@ -107,44 +107,42 @@ const PharmacyDrugsRequested = () => {
       mt="65px"
       alignItems="center"
       p={3}
+      rounded="lg"
     >
-      <BreadCrumbNav />
+
+      <HStack
+        w="full"
+        bgColor="white"
+      >
+        <BreadCrumbNav
+          addBtn={false}
+        />
+        {data ? (
+          <Avatar
+            name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
+            size="sm"
+            color="white"
+            fontWeight="bold"
+            boxShadow="lg"
+            marginRight={4}
+          />
+        )
+          : (
+            <SkeletonCircle
+              marginRight={4}
+            >
+              loading
+            </SkeletonCircle>
+          )}
+      </HStack>
+
       <HStack
         bgColor="white"
         w="full"
-        rounded="lg"
         p={3}
-        border="1px"
-        borderColor="gray.200"
-      >
-        {data
-        && (
-        <>
-          <Avatar
-            name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
-            size="lg"
-            color="white"
-            fontWeight="bold"
-          />
-          <VStack alignItems="flex-start">
-            <Text
-              fontSize="xl"
-              fontWeight="bold"
-              color="gray.700"
-            >
-              {data[0]?.patient.first_name}
-              {' '}
-              {data[0]?.patient.middle_name}
-            </Text>
 
-            <Text fontSize="lg" color="gray.500">
-              {moment().diff(data[0]?.patient?.dob, 'years')}
-              {' '}
-              years
-            </Text>
-          </VStack>
-        </>
-        )}
+      >
+        <Button>View Doctor Notes</Button>
 
       </HStack>
       <TablePharmacyRequest column={columns} data={data} />

@@ -62,7 +62,7 @@ const outPatientList = [
 const UserNameAvatar = ({ fullName }) => (
   <HStack>
     <Avatar
-      // size="sm"
+      size="sm"
       name={fullName}
       color="white"
     />
@@ -135,19 +135,22 @@ const WalkInPatientQueue = () => {
       {
         header: 'Requests',
         cell: (props) => (
-          <Menu>
-            <MenuButton
-              as={IconButton}
-              rightIcon={<FaEllipsisV />}
-              pr={3}
-              color="gray.500"
-              bgColor={0}
-            />
-            <MenuList>
-              <MenuItem>Pharmacy Request</MenuItem>
-              <MenuItem>Department Drugs Request</MenuItem>
-            </MenuList>
-          </Menu>
+          <VStack
+            alignItems="flex-start"
+          >
+            <Button
+              size="xs"
+              // w=""
+            >
+              Pharmacy
+            </Button>
+            <Button
+              size="xs"
+              // w=""
+            >
+              Departmental Drugs
+            </Button>
+          </VStack>
         ),
       },
     ],
