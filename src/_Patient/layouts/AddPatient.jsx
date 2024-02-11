@@ -65,14 +65,15 @@ const AddPatient = () => {
   //   patient_gender:{value:'MALE', label:'MALE'}
   // residence:{value:1, label:'Nanyuki}
   // }
-
-  personalData.patient_gender = personalData.patient_gender?.value;
-  personalData.residence = personalData.residence?.value;
-
-  nextOfKinData.next_of_kin = nextOfKinData.next_of_kin?.value;
+  useEffect(() => {
+    personalData.patient_gender = personalData.patient_gender?.value;
+    personalData.residence = personalData.residence?.value;
+    nextOfKinData.next_of_kin = nextOfKinData.next_of_kin?.value;
+  }, [personalData, nextOfKinData]);
 
   // OPD DAY || OPD NIGHT
   const consultation_type = 'CONSULTATION CONSULTATION-OPD DAY';
+  const service_desc = 'ANNUAL MEDICAL CARD FEE';
   const accountType = paymentType?.paymentType?.value;
 
   const inputValues = useMemo(() => [
@@ -89,6 +90,23 @@ const AddPatient = () => {
   const [addPatient, { isLoading, data }] = useAddPatientMutation();
   const [addPersonalAccountCharge,
     { isLoading: isLoadingCharges }] = useAddPersonalAccountChargeMutation();
+
+  const chargesInputValues2 = useMemo(() => [
+    {
+      amount: cost,
+      service_desc,
+      date_of_charge: moment(new Date()).format('MM-DD-YYYY'),
+      time_of_charge: moment(new Date()).format('hh:mm:ss'),
+      status: 1,
+      patient_id: patientID,
+      hospital_id: 18,
+      quantity: 0,
+      appointment_id: appointmentID,
+    },
+  ], [appointmentID, consultation_type,
+    patientID,
+    cost,
+  ]);
 
   const chargesInputValues = useMemo(() => [
     {
@@ -138,6 +156,8 @@ const AddPatient = () => {
     // appointmentID, patientID,
     inputValues,
   ]);
+
+  console.log(personalData, 'personal');
 
   return (
     <VStack w="full" h="100vh" bgColor="gray.50" mt="55px">

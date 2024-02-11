@@ -52,6 +52,7 @@ const PatientQueue = () => {
             <UserNameAvatar
               fullName={`${props.getValue()?.first_name} ${props.getValue()?.middle_name}`}
             />
+            <Text>{props.row.original.patient_gender}</Text>
           </Box>
         ),
         size: 200,
@@ -72,7 +73,7 @@ const PatientQueue = () => {
         header: 'PAYMENT DETAILS',
         accessorKey: 'insurance_detail',
         enableSorting: false,
-        cell: (props) => <Text>{props.getValue()?.insurance_name}</Text>,
+        cell: (props) => <Text>{props.getValue() ? props.getValue()?.insurance_name : 'CASH'}</Text>,
 
       },
       {

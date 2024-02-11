@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import {
-  FormControl, FormLabel, HStack, Input, VStack,
+  FormControl, FormLabel, HStack, IconButton, Input, VStack,
 } from '@chakra-ui/react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { useParams } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 import StepperNavButtons from './Nav/StepperNavButtons';
 import { useGetPatientQuery } from '../../api/patients.api';
+import CustomInput from './CustomInput';
 
 const customStyles = {
   control: (provided, state) => ({
@@ -25,8 +27,8 @@ const PersonalDetail = ({
   handleNext, handleBack, activeStep, setPersonalData,
 }) => {
   const residenceOptions = [
-    { value: '1', label: 'Nanyuki' },
-    { value: '2', label: 'Nairobi' },
+    { value: 'Nanyuki', label: 'Nanyuki' },
+    { value: 'Nairobi', label: 'Nairobi' },
   ];
 
   const genderOptions = [
@@ -41,7 +43,7 @@ const PersonalDetail = ({
     dob: '',
     email: '',
     nhif_no: '',
-    patient_gender: '',
+    patient_gender: { value: 'MALE', label: 'MALE' },
     id_number: '',
     residence: '',
   };
@@ -67,94 +69,43 @@ const PersonalDetail = ({
       }) => (
         <form onSubmit={handleSubmit}>
           <VStack spacing={6}>
+            <IconButton>
+              <FaSearch />
+            </IconButton>
 
             <HStack w="full">
-              <FormControl>
-                <FormLabel
-                  fontSize="14px"
+              <CustomInput
+                label="Old Reference Number"
+              />
 
-                >
-                  Out-Patient File Number
+              <CustomInput
+                label="In-Patient File Number"
+              />
 
-                </FormLabel>
-                <Input />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel
-                  fontSize="14px"
-
-                >
-                  Old Reference Number
-
-                </FormLabel>
-                <Input />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel
-                  fontSize="14px"
-
-                >
-                  In-Patient File Number
-
-                </FormLabel>
-                <Input />
-              </FormControl>
             </HStack>
             <HStack w="full">
 
-              <FormControl>
+              <CustomInput
+                label="First Name"
+                name="first_name"
+                value={values.first_name}
+                handleChange={handleChange}
+              />
 
-                <FormLabel
-                  fontSize="14px"
-                  textTransform="uppercase"
-                >
-                  First Name
+              <CustomInput
+                label="Second Name"
+                name="middle_name"
+                value={values.middle_name}
+                handleChange={handleChange}
+              />
 
-                </FormLabel>
-                <Input
-                  name="first_name"
-                  placeholder="Enter First Name"
-                  value={values.first_name}
-                  onChange={handleChange}
-                />
+              <CustomInput
+                label="Enter Last Name"
+                name="last_name"
+                value={values.last_name}
+                handleChange={handleChange}
+              />
 
-              </FormControl>
-
-              <FormControl>
-
-                <FormLabel
-                  fontSize="14px"
-
-                >
-                  Middle Name
-
-                </FormLabel>
-                <Input
-                  name="middle_name"
-                  placeholder="Enter Second Name"
-                  value={values.middle_name}
-                  onChange={handleChange}
-                />
-
-              </FormControl>
-              <FormControl>
-
-                <FormLabel
-                  fontSize="14px"
-                >
-                  Last Name
-
-                </FormLabel>
-                <Input
-                  name="last_name"
-                  placeholder="Enter Last Name"
-                  value={values.last_name}
-                  onChange={handleChange}
-                />
-
-              </FormControl>
             </HStack>
 
             {/* category */}
@@ -192,37 +143,26 @@ const PersonalDetail = ({
 
             </FormControl>
 
-            <FormControl>
-              <FormLabel
-                fontSize="14px"
+            <HStack
+              w="full"
+            >
 
-              >
-                ID/Passport Number
-
-              </FormLabel>
-              <Input
+              <CustomInput
                 name="id_number"
-                placeholder="Enter ID number"
                 value={values.id_number}
+                label="ID No."
                 onChange={handleChange}
               />
-            </FormControl>
-            <FormControl>
-              <FormLabel
-                fontSize="14px"
 
-              >
-                Email Address
-
-              </FormLabel>
-              <Input
+              <CustomInput
                 type="email"
                 name="email"
-                placeholder="Enter Address"
+                label="Enter Address"
                 value={values.email}
                 onChange={handleChange}
               />
-            </FormControl>
+            </HStack>
+
             <FormControl>
               <FormLabel
                 fontSize="14px"
@@ -239,20 +179,13 @@ const PersonalDetail = ({
               />
 
             </FormControl>
-            <FormControl>
-              <FormLabel
-                fontSize="14px"
 
-              >
-                NHIF Number
-
-              </FormLabel>
-              <Input
-                name="nhif_no"
-                value={values.nhif_no}
-                onChange={handleChange}
-              />
-            </FormControl>
+            <CustomInput
+              name="nhif_no"
+              placeholder="NHIF NO."
+              value={values.nhif_no}
+              onChange={handleChange}
+            />
 
             {/* stepper navigation footer */}
             <StepperNavButtons
