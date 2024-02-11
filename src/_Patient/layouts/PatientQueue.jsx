@@ -3,15 +3,14 @@
 /* eslint-disable react/prop-types */
 import {
   Avatar,
-  Box, Button, HStack, IconButton, Text, VStack,
+  Box, Button, HStack, Text, VStack,
 } from '@chakra-ui/react';
 // import axios from "axios"
 import {
-  FaAudible,
-  FaBoxOpen, FaEye, FaFileDownload, FaHandshake, FaPrint, FaUserNurse,
+  FaBoxOpen,
 } from 'react-icons/fa';
 import { useCallback, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import moment from 'moment/moment';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import DataTable2 from '../../components/tables/DataTable';
@@ -176,53 +175,6 @@ const PatientQueue = () => {
       <Box bgColor="white" w="full">
         <BreadCrumbNav link="/add-patient?type=admission" />
 
-        <HStack
-          w="full"
-          justifyContent="space-between"
-          bgColor="white"
-          p={2}
-          pl={5}
-          rounded="lg"
-          m="auto"
-        >
-          <Text
-            fontSize="16px"
-          // fontWeight="bold"
-          >
-            Patients Queue
-            <span style={{
-              // fontSize: '18px',
-              // fontWeight: 'normal',
-              color: 'gray',
-            }}
-            >
-              {' '}
-              (
-              {filteredData?.length}
-              )
-
-            </span>
-          </Text>
-          <HStack>
-            <Button
-              leftIcon={<FaPrint />}
-              size="sm"
-              fontWeight="normal"
-            >
-              Print
-
-            </Button>
-
-            <Button
-              leftIcon={<FaFileDownload />}
-              size="sm"
-            >
-              Download
-
-            </Button>
-
-          </HStack>
-        </HStack>
         {filteredData?.length === 0 ? (
           <VStack
             p={2}
@@ -253,7 +205,7 @@ const PatientQueue = () => {
               p={3}
               h="89%"
             >
-              <DataTable2 data={filteredData} columns={columnsx} />
+              <DataTable2 data={filteredData || []} columns={columnsx} />
             </Box>
           )}
       </Box>

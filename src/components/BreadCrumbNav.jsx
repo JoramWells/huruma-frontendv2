@@ -16,14 +16,17 @@ const BreadCrumbNav = ({ link, breadCrumbData, addBtn }) => {
         w="100%"
         bgColor="white"
         h={14}
-        p={3}
         justifyContent="space-between"
-        rounded="lg"
+        // rounded="lg"
+        borderBottom="1px"
+        borderBottomColor="gray.100"
+        paddingLeft="15px"
+
         // boxShadow="sm"
       >
         <Breadcrumb separator={(
           <FaChevronRight
-            size={15}
+            size={12}
             color="gray"
           />
               )}
@@ -33,7 +36,10 @@ const BreadCrumbNav = ({ link, breadCrumbData, addBtn }) => {
               onClick={() => navigate('/')}
               size="sm"
             >
-              <FaHome size={14} />
+              <FaHome
+                size={14}
+                color="gray"
+              />
             </IconButton>
           </BreadcrumbItem>
           {breadCrumbData.map((item) => (
@@ -41,6 +47,7 @@ const BreadCrumbNav = ({ link, breadCrumbData, addBtn }) => {
               key={item.id}
               onClick={() => navigate(item.link)}
               isCurrentPage={item.isCurrentPage}
+              color="gray"
             >
               <BreadcrumbLink
                 fontSize="14px"

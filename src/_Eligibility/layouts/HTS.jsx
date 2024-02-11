@@ -13,6 +13,7 @@ import {
 import { useCallback, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment/moment';
+import { nanoid } from '@reduxjs/toolkit';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import DataTable2 from '../../components/tables/DataTable';
 import { useGetAppointmentsQuery } from '../../api/appointments.api';
@@ -36,7 +37,21 @@ const UserNameAvatar = ({ fullName }) => (
   </HStack>
 );
 
-const Eligibility = () => {
+const breadCrumbData = [
+  {
+    id: nanoid(),
+    title: 'CCC',
+    link: '/ccc',
+  },
+  {
+    id: nanoid(),
+    title: 'HTS',
+    link: '/hts',
+    isCurrentPage: true,
+  },
+];
+
+const Hts = () => {
   const navigate = useNavigate();
 
   const {
@@ -141,7 +156,44 @@ const Eligibility = () => {
       position="relative"
     >
       <Box bgColor="white" w="full">
-        <BreadCrumbNav link="/add-patient?type=admission" />
+        <BreadCrumbNav
+          breadCrumbData={breadCrumbData}
+          link="/add-patient?type=admission"
+        />
+
+        <VStack
+          w="full"
+          // bgColor="red"
+          alignItems="flex-start"
+          paddingLeft="15px"
+          mt={5}
+          mb={5}
+
+        >
+          <Text
+            fontSize="18px"
+            fontWeight="bold"
+          >
+            HTS Category
+          </Text>
+          <HStack>
+            <Button
+              size="sm"
+            >
+              GBV
+            </Button>
+            <Button
+              size="sm"
+            >
+              HIV
+            </Button>
+            <Button
+              size="sm"
+            >
+              TB
+            </Button>
+          </HStack>
+        </VStack>
 
         {filteredData?.length === 0 ? (
           <VStack
@@ -181,4 +233,4 @@ const Eligibility = () => {
   );
 };
 
-export default Eligibility;
+export default Hts;
