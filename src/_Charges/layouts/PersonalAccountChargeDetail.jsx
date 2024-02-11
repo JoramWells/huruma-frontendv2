@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-no-undef */
@@ -7,10 +8,10 @@ import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   Avatar,
-  Box, Button, HStack, IconButton, Text, VStack, useDisclosure,
+  Box, Button, HStack, IconButton, Tag, Text, VStack, useDisclosure,
 } from '@chakra-ui/react';
 import moment from 'moment/moment';
-import { FaArrowRight, FaEdit } from 'react-icons/fa';
+import { FaArrowRight, FaEdit, FaTrashAlt } from 'react-icons/fa';
 import IndeterminateCheckbox from '../../_Doctor/components/IndeterminateCheckbox';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import TablePharmacyRequest from '../../_Pharmacy/components/TablePharmacyRequest';
@@ -60,30 +61,72 @@ const PersonalAccountChargeDetail = () => {
     },
     {
       header: 'PAY STATUS',
-      accessorKey: 'pay_status',
-      cell: (props) => <Text>{props.getValue()}</Text>,
+      accessorKey: 'status',
+      cell: (props) => (
+        <>
+          {
+          props.getValue() === 0
+            ? (
+              <Tag
+                colorScheme="red"
+                size="sm"
+              >
+                UNPAID
+              </Tag>
+            )
+            : (
+              <Tag
+                colorScheme="green"
+                size="sm"
+              >
+                PAID
+              </Tag>
+            )
+      }
+        </>
+      ),
     },
-    {
-      header: 'Quantity',
-      accessorKey: 'quantity',
-      cell: (props) => <Text>{props.getValue() === 0 ? 1 : props.getValue()}</Text>,
-    },
+    // {
+    //   header: 'Quantity',
+    //   accessorKey: 'quantity',
+    //   cell: (props) => <Text>{props.getValue() === 0 ? 1 : props.getValue()}</Text>,
+    // },
     {
       header: 'Cost',
       accessorKey: 'amount',
       cell: (props) => <Text>{props.getValue()}</Text>,
     },
     {
-      header: 'Cost',
+      header: 'ACTION',
       cell: (props) => (
-        <IconButton
-          onClick={onOpen}
-          size="sm"
-        >
-          <FaEdit
-            color="#42A5F5"
-          />
-        </IconButton>
+        <HStack>
+          <IconButton
+            onClick={onOpen}
+            size="sm"
+            bgColor="blue.50"
+            _hover={{
+              bgColor: 'blue.100',
+            }}
+          >
+            <FaEdit
+              color="#42A5F5"
+            />
+          </IconButton>
+
+          {/*  */}
+          <IconButton
+            onClick={onOpen}
+            size="sm"
+            bgColor="red.50"
+            _hover={{
+              bgColor: 'red.100',
+            }}
+          >
+            <FaTrashAlt
+              color="#ef4444"
+            />
+          </IconButton>
+        </HStack>
       ),
     },
     {

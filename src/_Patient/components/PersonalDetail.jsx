@@ -69,9 +69,9 @@ const PersonalDetail = ({
       }) => (
         <form onSubmit={handleSubmit}>
           <VStack spacing={6}>
-            <IconButton>
+            {/* <IconButton>
               <FaSearch />
-            </IconButton>
+            </IconButton> */}
 
             <HStack w="full">
               <CustomInput
@@ -151,15 +151,15 @@ const PersonalDetail = ({
                 name="id_number"
                 value={values.id_number}
                 label="ID No."
-                onChange={handleChange}
+                handleChange={handleChange}
               />
 
               <CustomInput
-                type="email"
+                // type="email"
                 name="email"
-                label="Enter Address"
+                label="Enter Email Address"
                 value={values.email}
-                onChange={handleChange}
+                handleChange={handleChange}
               />
             </HStack>
 
@@ -182,9 +182,9 @@ const PersonalDetail = ({
 
             <CustomInput
               name="nhif_no"
-              placeholder="NHIF NO."
+              label="NHIF NO."
               value={values.nhif_no}
-              onChange={handleChange}
+              handleChange={handleChange}
             />
 
             {/* stepper navigation footer */}

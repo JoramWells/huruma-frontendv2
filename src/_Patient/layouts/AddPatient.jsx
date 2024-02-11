@@ -93,11 +93,25 @@ const AddPatient = () => {
 
   const chargesInputValues2 = useMemo(() => [
     {
-      amount: cost,
+      amount: 50,
       service_desc,
       date_of_charge: moment(new Date()).format('MM-DD-YYYY'),
       time_of_charge: moment(new Date()).format('hh:mm:ss'),
-      status: 1,
+      status: 0,
+      patient_id: patientID,
+      hospital_id: 18,
+      quantity: 0,
+      appointment_id: appointmentID,
+    },
+  ], [appointmentID, patientID]);
+
+  const chargesInputValues = useMemo(() => [
+    {
+      amount: cost,
+      service_desc: consultation_type,
+      date_of_charge: moment(new Date()).format('MM-DD-YYYY'),
+      time_of_charge: moment(new Date()).format('hh:mm:ss'),
+      status: 0,
       patient_id: patientID,
       hospital_id: 18,
       quantity: 0,
@@ -108,21 +122,19 @@ const AddPatient = () => {
     cost,
   ]);
 
-  const chargesInputValues = useMemo(() => [
+  const cashInputValues = useMemo(() => [
     {
-      amount: cost,
+      amount: 100,
       service_desc: consultation_type,
       date_of_charge: moment(new Date()).format('MM-DD-YYYY'),
       time_of_charge: moment(new Date()).format('hh:mm:ss'),
-      status: 1,
+      status: 0,
       patient_id: patientID,
       hospital_id: 18,
       quantity: 0,
       appointment_id: appointmentID,
     },
-  ], [appointmentID, consultation_type,
-    patientID,
-    cost,
+  ], [appointmentID, patientID, consultation_type,
   ]);
 
   const handleSteps = () => {
@@ -139,8 +151,15 @@ const AddPatient = () => {
       setPatientID(data?.patient_id);
       setAppointmentID(data?.appointment_id);
     }
-    if (patientID) { addPersonalAccountCharge(chargesInputValues[0]); }
-  }, [data, addPersonalAccountCharge,
+    if (patientID) {
+      if (insuranceAccount) {
+        addPersonalAccountCharge(chargesInputValues[0]);
+      } else {
+        addPersonalAccountCharge(cashInputValues[0]);
+        addPersonalAccountCharge(chargesInputValues2[0]);
+      }
+    }
+  }, [data, addPersonalAccountCharge, cashInputValues, insuranceAccount, chargesInputValues2,
     patientID, chargesInputValues, searchParams,
 
   ]);

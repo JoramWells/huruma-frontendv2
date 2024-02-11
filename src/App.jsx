@@ -106,6 +106,7 @@ import RadiologyDetails from './_Radiology/layouts/RadiologyDetails';
 import VitalSignsAllergies from './_VitalSigns/layouts/VitalSignsAllergies';
 import AddRadiologyResults from './_Radiology/layouts/AddRadiologyResults';
 import RadiologyVisits from './_Radiology/layouts/RadiologyVisits';
+import AddEligibilityScreening from './_Eligibility/layouts/AddEligibilityScreening';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -403,6 +404,8 @@ function App() {
             <Route path="/admin-group-privileges-details/:id" element={<GroupPrivilegesDetails />} />
 
             <Route path="/hospital-stores" element={<HospitalStores />} />
+
+            <Route path="/add-eligibility-screening/:id" element={<AddEligibilityScreening />} />
 
             <Route path="/vital-signs" element={<VitalSignsAllergies />} />
             <Route path="/add-vitals/:id" element={<AddVitals />} />

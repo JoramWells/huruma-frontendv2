@@ -78,9 +78,21 @@ const PatientQueue = () => {
       },
       {
         header: 'Eligibility',
-        cel: (props) => (
-          <Button>NOT RECORDED</Button>
+        // accessorKey: 'tem',
+        cell: (props) => (
+          <Box>
+            <Button
+              variant="ghost"
+                  // bgColor={}
+              // colorScheme="orange"
+              size="xs"
+              onClick={() => navigate(`/add-eligibility-screening/${props.row.original.patient_id}`)}
+            >
+              RECORD
+            </Button>
+          </Box>
         ),
+
       },
       {
         header: 'Vital Signs',
@@ -90,14 +102,15 @@ const PatientQueue = () => {
             {!props.row.original.temperature
               ? (
                 <Button
-                  variant="outline"
+                  variant="ghost"
+                  // bgColor={}
                   colorScheme="orange"
-                  size="sm"
+                  size="xs"
                   onClick={() => navigate(`/add-vitals/${props.row.original.patient_id}`)}
                 >
-                  NOT RECORDED
+                  RECORD
                 </Button>
-              ) : <Button size="sm" colorScheme="green" variant="ghost">RECORDED</Button>}
+              ) : <Button size="xs" colorScheme="green" variant="ghost">RECORDED</Button>}
           </Box>
         ),
 
@@ -107,10 +120,10 @@ const PatientQueue = () => {
         cell: (props) => (
           <HStack justifyContent="flex-start" alignItems="flex-start">
             <Button
-              variant="outline"
+              // variant="outline"
               color="gray.700"
-              borderColor="gray.700"
-              size="sm"
+              // borderColor="gray.700"
+              size="xs"
               onClick={() => navigate({
                 pathname: `/doctor/${props.row.original.appointment_id}`,
                 search: `?patient_id=${props.row.original.patient_id}`,
