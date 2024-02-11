@@ -16,6 +16,7 @@ import moment from 'moment/moment';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import DataTable2 from '../../components/tables/DataTable';
 import { useGetAppointmentsQuery } from '../../api/appointments.api';
+import { useGetAllEligibilityQuery } from '../api/eligibility.api';
 
 const UserNameAvatar = ({ fullName }) => (
   <HStack>
@@ -35,22 +36,22 @@ const UserNameAvatar = ({ fullName }) => (
   </HStack>
 );
 
-const PatientQueue = () => {
+const Eligibility = () => {
   const navigate = useNavigate();
 
   const {
     data, error, isLoading, isFetching, isSuccess,
-  } = useGetAppointmentsQuery();
+  } = useGetAllEligibilityQuery();
 
   const columnsx = useMemo(
     () => [
       {
         header: 'Patient Name',
-        accessorKey: 'patient',
+        accessorKey: 'appointments2',
         cell: (props) => (
           <Box onClick={() => navigate(`/patient-detail/${props.row.original.patient_id}`)}>
             <UserNameAvatar
-              fullName={`${props.getValue()?.first_name} ${props.getValue()?.middle_name}`}
+              fullName={`${props.getValue()?.patient.first_name} ${props.getValue()?.patient.middle_name}`}
             />
             <Text>{props.row.original.patient_gender}</Text>
           </Box>
@@ -66,55 +67,6 @@ const PatientQueue = () => {
             <Text>{moment(props.getValue()).format('LL')}</Text>
             <Text color="gray.500">{moment(props.row.original.appointment_time, 'HH:mm').format('hh:mm A')}</Text>
           </VStack>
-        ),
-
-      },
-      {
-        header: 'PAYMENT DETAILS',
-        accessorKey: 'insurance_detail',
-        enableSorting: false,
-        cell: (props) => <Text>{props.getValue() ? props.getValue()?.insurance_name : 'CASH'}</Text>,
-
-      },
-      {
-        header: 'Eligibility',
-        // accessorKey: 'tem',
-        cell: (props) => (
-          <Box>
-            <Button
-              variant="ghost"
-                  // bgColor={}
-              // colorScheme="orange"
-              size="xs"
-              onClick={() => navigate({
-                pathname: `/add-eligibility-screening/${props.row.original.patient_id}`,
-                search: `?appointment_id=${props.row.original.appointment_id}`,
-              })}
-            >
-              RECORD
-            </Button>
-          </Box>
-        ),
-
-      },
-      {
-        header: 'Vital Signs',
-        // accessorKey: 'tem',
-        cell: (props) => (
-          <Box>
-            {!props.row.original.temperature
-              ? (
-                <Button
-                  variant="ghost"
-                  // bgColor={}
-                  colorScheme="orange"
-                  size="xs"
-                  onClick={() => navigate(`/add-vitals/${props.row.original.patient_id}`)}
-                >
-                  RECORD
-                </Button>
-              ) : <Button size="xs" colorScheme="green" variant="ghost">RECORDED</Button>}
-          </Box>
         ),
 
       },
@@ -163,6 +115,8 @@ const PatientQueue = () => {
   }, [data]);
 
   const filteredData = filterByDate();
+
+  console.log(data);
 
   return (
     <VStack
@@ -261,4 +215,4 @@ const PatientQueue = () => {
   );
 };
 
-export default PatientQueue;
+export default Eligibility;

@@ -17,7 +17,10 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import Select from 'react-select';
+import moment from 'moment';
+import PropTypes from 'prop-types';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
+import { useAddEligibilityMutation } from '../api/eligibility.api';
 // import { useAddVitalSignsMutation } from '../api/vitalSigns.api';
 
 const testedOptions = [
@@ -46,7 +49,9 @@ const gbvOptions = [
   { value: 5, label: 'Not Done' },
 ];
 
-const TestedForm = () => (
+const TestedForm = ({
+  date, onDateChange, results, onResultsChange,
+}) => (
   <>
     <FormControl>
       <FormLabel
@@ -57,6 +62,8 @@ const TestedForm = () => (
       </FormLabel>
       <Input
         type="date"
+        value={date}
+        onChange={onDateChange}
       />
     </FormControl>
 
@@ -68,10 +75,27 @@ const TestedForm = () => (
       >
         Test Results
       </FormLabel>
-      <Input />
+      <Input
+        value={results}
+        onChange={onResultsChange}
+      />
     </FormControl>
   </>
 );
+
+TestedForm.propTypes = {
+  results: PropTypes.string,
+  date: PropTypes.string,
+  onDateChange: PropTypes.func,
+  onResultsChange: PropTypes.func,
+};
+
+TestedForm.defaultProps = {
+  results: '',
+  date: '',
+  onDateChange: () => {},
+  onResultsChange: () => {},
+};
 
 const AddEligibilityScreening = () => {
   const [searchParams] = useSearchParams();
@@ -79,26 +103,32 @@ const AddEligibilityScreening = () => {
   const [isTested, setIsTested] = useState('');
 
   const { id: patient_id } = useParams();
-  const [vitalValues, setVitalValues] = useState({
-    temperature: '',
-    pulseRate: '',
-    respiratoryRate: '',
-    systolic: '',
-    diastolic: '',
-    weight: '',
-    height: '',
-    bmi: '',
-    sp02: '',
-  });
+
+  const [eligible, setEligible] = useState('');
+  const [date, setDate] = useState(null);
+  const [result, setResult] = useState('');
+  const [keyPopulation, setKeyPopulation] = useState('');
+  const [tbScreening, setTBScreening] = useState('');
+  const [gbvScreening, setGBVScreening] = useState('');
+  const [reason, setReason] = useState('');
+  const [tested, setTested] = useState('');
 
   const navigate = useNavigate();
 
-  // const [addVitalSigns, { isLoading, error }] = useAddVitalSignsMutation();
+  const [addEligibility, { isLoading, error }] = useAddEligibilityMutation();
 
   const inputValues = {
     patient_id,
     appointment_id,
-    ...vitalValues,
+    isTested: isTested.label,
+    eligible: eligible.label,
+    date,
+    result,
+    keyPopulation: keyPopulation.label,
+    tbScreening: tbScreening.label,
+    gbvScreening: gbvScreening.label,
+    reason,
+    tested,
   };
 
   const breadCrumbData = [
@@ -188,7 +218,14 @@ const AddEligibilityScreening = () => {
           />
         </FormControl>
 
-        {isTested.value === 1 && <TestedForm />}
+        {isTested.value === 1 && (
+        <TestedForm
+          date={date}
+          onDateChange={setDate}
+          results={result}
+          onResultsChange={setResult}
+        />
+        )}
 
         {/* item code prefix */}
         <FormControl>
@@ -200,6 +237,8 @@ const AddEligibilityScreening = () => {
           </FormLabel>
           <Select
             options={keyPopulationOptions}
+            value={keyPopulation}
+            onChange={(val) => setKeyPopulation(val)}
           />
         </FormControl>
 
@@ -212,6 +251,8 @@ const AddEligibilityScreening = () => {
           </FormLabel>
           <Select
             options={tbOptions}
+            value={tbScreening}
+            onChange={(val) => setTBScreening(val)}
           />
         </FormControl>
 
@@ -224,6 +265,8 @@ const AddEligibilityScreening = () => {
           </FormLabel>
           <Select
             options={gbvOptions}
+            value={gbvScreening}
+            onChange={(val) => setGBVScreening(val)}
           />
         </FormControl>
         <FormControl>
@@ -236,6 +279,8 @@ const AddEligibilityScreening = () => {
           </FormLabel>
           <Select
             options={testedOptions}
+            value={eligible}
+            onChange={setEligible}
           />
         </FormControl>
 
@@ -248,10 +293,9 @@ const AddEligibilityScreening = () => {
             Reason for Testing
           </FormLabel>
           <Input
-            // size="lg"
-            placeholder="Enter BMI"
+            value={reason}
             // value={bmi}
-            onChange={(e) => setVitalValues({ ...vitalValues, bmi: e.target.value })}
+            onChange={(e) => setReason(e.target.value)}
           />
         </FormControl>
 
@@ -260,10 +304,9 @@ const AddEligibilityScreening = () => {
           size="md"
           width="full"
           colorScheme="blue"
-          // onClick={() => addVitalSigns(inputValues)}
+          onClick={() => addEligibility(inputValues)}
         >
-          {/* {isLoading ? 'loading' : 'Save'} */}
-          Save
+          {isLoading ? 'loading' : 'Save'}
         </Button>
       </VStack>
     </VStack>

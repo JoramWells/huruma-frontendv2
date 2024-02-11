@@ -43,6 +43,7 @@ import { wardTypesApi } from './api/wardType.api';
 import { admissionCategoryApi } from './api/admissionCategory.api';
 import { wardBedsApi } from './api/wardBed.api';
 import { vitalSignsApi } from './_VitalSigns/api/vitalSigns.api';
+import { eligibilityApi } from './_Eligibility/api/eligibility.api';
 
 export const store = configureStore({
   reducer: {
@@ -90,6 +91,7 @@ export const store = configureStore({
     [wardBedsApi.reducerPath]: wardBedsApi.reducer,
     [admissionCategoryApi.reducerPath]: admissionCategoryApi.reducer,
     [vitalSignsApi.reducerPath]: vitalSignsApi.reducer,
+    [eligibilityApi.reducerPath]: eligibilityApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(patientsApi.middleware)
@@ -136,5 +138,6 @@ export const store = configureStore({
     .concat(wardBedsApi.middleware)
     .concat(admissionCategoryApi.middleware)
     .concat(vitalSignsApi.middleware)
+    .concat(eligibilityApi.middleware)
   ,
 });
