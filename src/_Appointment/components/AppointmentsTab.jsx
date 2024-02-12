@@ -79,6 +79,7 @@ const AppointmentsTab = () => {
       >
         <Button
           size="sm"
+          onClick={() => navigate(`/add-admission/${patient_id}`)}
         >
           ADMIT
         </Button>

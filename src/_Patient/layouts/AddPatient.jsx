@@ -82,6 +82,7 @@ const AddPatient = () => {
       account_type_id: accountType,
       consultation_type: '28',
       insuranceAccount,
+      patient_gender: personalData.patient_gender?.value,
       ...personalData,
       ...nextOfKinData,
     },

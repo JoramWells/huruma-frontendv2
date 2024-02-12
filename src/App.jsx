@@ -109,6 +109,7 @@ import RadiologyVisits from './_Radiology/layouts/RadiologyVisits';
 import AddEligibilityScreening from './_Eligibility/layouts/AddEligibilityScreening';
 import Eligibility from './_Eligibility/layouts/Eligibility';
 import Hts from './_Eligibility/layouts/HTS';
+import AddAdmission from './_Admission/layouts/AddAdmission';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -315,6 +316,7 @@ function App() {
 
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/appointment-detail/:id" element={<AppointmentDetail />} />
+            <Route path="/add-admission/:id" element={<AddAdmission />} />
 
             <Route path="/suppliers" element={<Suppliers />} />
             <Route path="/add-suppliers" element={<AddSuppliers />} />

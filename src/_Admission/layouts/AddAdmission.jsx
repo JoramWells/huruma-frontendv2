@@ -1,209 +1,259 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import {
-  Box, Button, VStack,
+  Avatar,
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  HStack,
+  IconButton,
+  Input,
+  Text,
+  VStack,
 } from '@chakra-ui/react';
-import {
-  useCallback, useEffect, useMemo, useState,
-} from 'react';
-import { useSearchParams } from 'react-router-dom';
-
-import moment from 'moment/moment';
-import { useAddPatientMutation } from '../../api/patients.api';
-import { useAddPersonalAccountChargeMutation } from '../../api/personalAccountCharges.api';
-import PersonalDetail from '../../_Patient/components/PersonalDetail';
-import NextOfKin from '../../_Patient/components/PatientForm/NextOfKin';
-import PaymentDetail from '../../_Patient/components/PaymentDetail';
-import StepperNav from '../components/Nav/StepperNav';
-import { useAddAdmissionMutation } from '../../api/admissions.api';
-
-const sunrise = moment('6:00 a.m', 'h:mm a');
-const sunset = moment('6:00 p.m', 'h:mm a');
-
-const isDay = () => {
-  const currentTime = moment();
-  return currentTime.isBetween(sunrise, sunset);
-};
+import { FaArrowLeft } from 'react-icons/fa';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
+import Select from 'react-select';
+import BreadCrumbNav from '../../components/BreadCrumbNav';
+// import { useAddVitalSignsMutation } from '../api/vitalSigns.api';
 
 const AddAdmission = () => {
-  const [personalData, setPersonalData] = useState({});
-  const [nextOfKinData, setNextOfKinData] = useState({});
-  const [insuranceAccount, setInsuranceAccount] = useState('');
-  const [paymentType, setPaymentType] = useState('');
-  const [cost, setCost] = useState(0);
-  const [patientID, setPatientID] = useState('');
-  const [appointmentID, setAppointmentID] = useState('');
+  const [searchParams] = useSearchParams();
+  const appointment_id = searchParams.get('appointment_id');
 
-  const [activeStep, setActiveStep] = useState(1);
-  const [account_type_id, setAccountTypeID] = useState('');
+  const { id: patient_id } = useParams();
+  const [vitalValues, setVitalValues] = useState({
+    temperature: '',
+    pulseRate: '',
+    respiratoryRate: '',
+    systolic: '',
+    diastolic: '',
+    weight: '',
+    height: '',
+    bmi: '',
+    sp02: '',
+  });
 
-  const steps = [
-    { title: 'Personal', description: 'Personal Info' },
-    { title: 'Next of Kin', description: 'NofK Details' },
-    { title: 'Payment', description: 'Payment Details' },
-    { title: 'Finish', description: 'Complete Admission' },
+  const navigate = useNavigate();
+
+  // const [addVitalSigns, { isLoading, error }] = useAddVitalSignsMutation();
+
+  const inputValues = {
+    patient_id,
+    appointment_id,
+    ...vitalValues,
+  };
+
+  const breadCrumbData = [
+    {
+      id: nanoid(),
+      title: 'Patients',
+      link: '/patients',
+    },
+    {
+      id: nanoid(),
+      // title: `${data?.patient.first_name} ${data?.patient.middle_name}`,
+      title: 'Nursing Station',
+      link: '/nursing-station',
+    },
+    {
+      id: nanoid(),
+      // title: `${data?.patient.first_name} ${data?.patient.middle_name}`,
+      title: 'Add Vitals',
+      link: '/',
+      isCurrentPage: true,
+    },
   ];
 
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const handleNext = () => {
-    setActiveStep((prevStep) => prevStep + 1);
-    // navigate({
-    //   pathname: '/add-invoice',
-    //   search: `?id=${invoiceId}`,
-    // });
-    setSearchParams(activeStep);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevStep) => prevStep - 1);
-  };
-
-  // DATA STRUCTURE
-  // personalData={
-  //   patient_gender:{value:'MALE', label:'MALE'}
-  // residence:{value:1, label:'Nanyuki}
-  // }
-
-  personalData.patient_gender = personalData.patient_gender?.value;
-  personalData.residence = personalData.residence?.value;
-
-  nextOfKinData.next_of_kin = nextOfKinData.next_of_kin?.value;
-
-  // OPD DAY || OPD NIGHT
-  const consultation_type = 'CONSULTATION CONSULTATION-OPD DAY';
-  const accountType = paymentType?.paymentType?.value;
-
-  const inputValues = useMemo(() => [
-
-    {
-      account_type_id: accountType,
-      consultation_type: '28',
-      insuranceAccount,
-      ...personalData,
-      ...nextOfKinData,
-    },
-  ], [accountType, personalData, nextOfKinData, insuranceAccount]);
-
-  const [addPatient, { isLoading, data }] = useAddPatientMutation();
-  const [addPersonalAccountCharge,
-    { isLoading: isLoadingCharges }] = useAddPersonalAccountChargeMutation();
-
-  const [addAdmission] = useAddAdmissionMutation();
-
-  // const chargesInputValues = useMemo(() => [
-  //   {
-  //     amount: cost,
-  //     service_desc: consultation_type,
-  //     date_of_charge: moment(new Date()).format('MM-DD-YYYY'),
-  //     time_of_charge: moment(new Date()).format('hh:mm:ss'),
-  //     status: 1,
-  //     patient_id: patientID,
-  //     hospital_id: 18,
-  //     quantity: 0,
-  //     appointment_id: appointmentID,
-  //   },
-  // ], [appointmentID, consultation_type,
-  //   patientID,
-  //   cost,
-  // ]);
-
-  const chargesInputValues = useMemo(() => [
-    {
-      appointment_id: appointmentID,
-      patient_id: patientID,
-      amount: cost,
-      admission_date: moment(new Date()).format('MM-DD-YYYY'),
-      admission_time: moment(new Date()).format('hh:mm:ss'),
-      hospital_id: 18,
-    },
-  ], [appointmentID,
-    patientID,
-    cost,
-  ]);
-
-  useEffect(() => {
-    if (data) {
-      setPatientID(data?.patient_id);
-      setAppointmentID(data?.appointment_id);
-    }
-    if (patientID) { addAdmission(chargesInputValues[0]); }
-  }, [data, addAdmission,
-    patientID, chargesInputValues]);
-
-  const handleSubmit = useCallback(() => {
-    addPatient(inputValues[0]);
-
-    // timeout
-    // setTimeout(() => {
-    //   addPersonalAccountCharge(chargesInputValues);
-    // }, 3000);
-  }, [addPatient, inputValues,
-  ]);
-
-  console.log(chargesInputValues, 'cki');
-
   return (
-    <VStack w="full" h="100vh" bgColor="gray.50" mt="55px">
-
-      {/* stepper navigation */}
-      <StepperNav activeStep={activeStep} steps={steps} />
-
-      <Box
-        w="50%"
-        p={5}
-        rounded="lg"
+    <VStack
+      w="full"
+      h="100vh"
+      // alignItems="center"
+      // justifyContent="center"
+      bgColor="gray.50"
+      mt="60px"
+      p={3}
+    >
+      <HStack
+        w="full"
         bgColor="white"
       >
-
-        {/* PERSONAL DETAILS */}
-        {activeStep === 1 && (
-        <PersonalDetail
-          handleNext={handleNext}
-          handleBack={handleBack}
-          setPersonalData={setPersonalData}
-          activeStep={activeStep}
+        <BreadCrumbNav
+          addBtn={false}
+          breadCrumbData={breadCrumbData}
         />
-        )}
-
-        {/* NEXT OF KIN */}
-        {activeStep === 2 && (
-        <NextOfKin
-          handleNext={handleNext}
-          handleBack={handleBack}
-          setNextOfKinData={setNextOfKinData}
-          activeStep={activeStep}
+        <Avatar
+          // name={`${data?.patient?.first_name} ${data?.patient?.last_name}`}
+          name="jay"
+          size="sm"
+          fontWeight="bold"
         />
-        )}
-
-        {/* payment detail */}
-        {activeStep === 3 && (
-        <PaymentDetail
-          paymentType={paymentType}
-          setPaymentType={setPaymentType}
-          inputValues={inputValues}
-          insuranceAccount={insuranceAccount}
-          setInsuranceAccount={setInsuranceAccount}
-          cost={cost}
-          setCost={setCost}
-          handleNext={handleNext}
-          handleBack={handleBack}
-          activeStep={activeStep}
-        />
-        )}
-
-        {/* complete info */}
-        {activeStep === 4 && (
-          <Button
-            colorScheme="green"
-            onClick={() => handleSubmit()}
+      </HStack>
+      <VStack
+        w="45%"
+        bgColor="white"
+        // boxShadow="lg"
+        p={5}
+        rounded="lg"
+        border="1px"
+        borderColor="gray.200"
+        spacing="1.3rem"
+      >
+        <HStack w="full" justifyContent="space-between">
+          <IconButton
+            size="sm"
+            onClick={() => navigate(-1)}
           >
-            {isLoading || isLoadingCharges ? 'loading...' : 'Save Patient'}
+            <FaArrowLeft />
+          </IconButton>
+          <Text
+            fontSize="16px"
+            fontWeight="semibold"
+            // color="gray.500"
+          >
+            Add Vital Signs
+          </Text>
+        </HStack>
+        {/* sub item */}
+        <FormControl>
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            Select Doctor
+          </FormLabel>
+          <Select />
+        </FormControl>
 
-          </Button>
-        )}
+        {/* item code prefix */}
+        <FormControl>
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            Select Ward
+          </FormLabel>
+          <Select />
+        </FormControl>
 
-      </Box>
+        <FormControl>
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            Respiratory Rate
+          </FormLabel>
+          <Select />
+        </FormControl>
+
+        <HStack w="full">
+          <FormControl>
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+            >
+              Systolic Rate (mmHg)
+            </FormLabel>
+            <Input
+              // size="lg"
+              placeholder="Enter Systolic Rate"
+              // value={systolic}
+              onChange={(e) => setVitalValues({ ...vitalValues, systolic: e.target.value })}
+            />
+          </FormControl>
+          <FormControl>
+
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+            >
+              Diastolic value (mmHg)
+            </FormLabel>
+            <Input
+              placeholder="Enter Diastolic value"
+              // value={diastolic}
+              onChange={(e) => setVitalValues({ ...vitalValues, diastolic: e.target.value })}
+            />
+          </FormControl>
+
+        </HStack>
+        <HStack w="full">
+          <FormControl>
+
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+            >
+              Weight (Kg)
+            </FormLabel>
+            <Input
+              placeholder="Enter Weight"
+              // value={weight}
+              onChange={(e) => setVitalValues({ ...vitalValues, weight: e.target.value })}
+            />
+          </FormControl>
+          <FormControl>
+
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+            >
+              Height (m)
+            </FormLabel>
+            <Input
+              // size="lg"
+              placeholder="Enter Height"
+              // value={height}
+              onChange={(e) => setVitalValues({ ...vitalValues, height: e.target.value })}
+            />
+          </FormControl>
+        </HStack>
+
+        <FormControl>
+
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            BMI (Kg/m²)
+          </FormLabel>
+          <Input
+            // size="lg"
+            placeholder="Enter BMI"
+            // value={bmi}
+            onChange={(e) => setVitalValues({ ...vitalValues, bmi: e.target.value })}
+          />
+        </FormControl>
+        <FormControl>
+
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            SP02 (%)
+          </FormLabel>
+          <Input
+            placeholder="Enter SP02"
+            // value={sp02}
+            onChange={(e) => setVitalValues({ ...vitalValues, sp02: e.target.value })}
+          />
+        </FormControl>
+
+        {/* save btn */}
+        <Button
+          size="md"
+          width="full"
+          colorScheme="blue"
+          // onClick={() => addVitalSigns(inputValues)}
+        >
+          {/* {isLoading ? 'loading' : 'Save'} */}
+          Save
+        </Button>
+      </VStack>
     </VStack>
   );
 };
