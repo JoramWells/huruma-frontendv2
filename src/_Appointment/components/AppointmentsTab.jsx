@@ -79,6 +79,11 @@ const AppointmentsTab = () => {
       >
         <Button
           size="sm"
+        >
+          ADMIT
+        </Button>
+        <Button
+          size="sm"
           border="1px"
           borderColor="gray.500"
         //   rounded="full"
