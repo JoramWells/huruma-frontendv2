@@ -2,7 +2,6 @@
 /* eslint-disable camelcase */
 import {
   Avatar,
-  Box,
   Button,
   FormControl,
   FormLabel,
@@ -18,6 +17,7 @@ import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import Select from 'react-select';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
+import { useGetWardsQuery } from '../../api/ward.api';
 // import { useAddVitalSignsMutation } from '../api/vitalSigns.api';
 
 const AddAdmission = () => {
@@ -68,6 +68,9 @@ const AddAdmission = () => {
     },
   ];
 
+  const { data } = useGetWardsQuery();
+  console.log(data);
+
   return (
     <VStack
       w="full"
@@ -111,11 +114,11 @@ const AddAdmission = () => {
             <FaArrowLeft />
           </IconButton>
           <Text
-            fontSize="16px"
+            fontSize="18px"
             fontWeight="semibold"
-            // color="gray.500"
+          // color="gray.500"
           >
-            Add Vital Signs
+            New Admission
           </Text>
         </HStack>
         {/* sub item */}
@@ -145,88 +148,19 @@ const AddAdmission = () => {
             fontSize="14px"
             fontWeight="bold"
           >
-            Respiratory Rate
+            Select Bed Number
           </FormLabel>
           <Select />
         </FormControl>
 
-        <HStack w="full">
-          <FormControl>
-            <FormLabel
-              fontSize="14px"
-              fontWeight="bold"
-            >
-              Systolic Rate (mmHg)
-            </FormLabel>
-            <Input
-              // size="lg"
-              placeholder="Enter Systolic Rate"
-              // value={systolic}
-              onChange={(e) => setVitalValues({ ...vitalValues, systolic: e.target.value })}
-            />
-          </FormControl>
-          <FormControl>
-
-            <FormLabel
-              fontSize="14px"
-              fontWeight="bold"
-            >
-              Diastolic value (mmHg)
-            </FormLabel>
-            <Input
-              placeholder="Enter Diastolic value"
-              // value={diastolic}
-              onChange={(e) => setVitalValues({ ...vitalValues, diastolic: e.target.value })}
-            />
-          </FormControl>
-
-        </HStack>
-        <HStack w="full">
-          <FormControl>
-
-            <FormLabel
-              fontSize="14px"
-              fontWeight="bold"
-            >
-              Weight (Kg)
-            </FormLabel>
-            <Input
-              placeholder="Enter Weight"
-              // value={weight}
-              onChange={(e) => setVitalValues({ ...vitalValues, weight: e.target.value })}
-            />
-          </FormControl>
-          <FormControl>
-
-            <FormLabel
-              fontSize="14px"
-              fontWeight="bold"
-            >
-              Height (m)
-            </FormLabel>
-            <Input
-              // size="lg"
-              placeholder="Enter Height"
-              // value={height}
-              onChange={(e) => setVitalValues({ ...vitalValues, height: e.target.value })}
-            />
-          </FormControl>
-        </HStack>
-
         <FormControl>
-
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
           >
-            BMI (Kg/m²)
+            Select Admission Category
           </FormLabel>
-          <Input
-            // size="lg"
-            placeholder="Enter BMI"
-            // value={bmi}
-            onChange={(e) => setVitalValues({ ...vitalValues, bmi: e.target.value })}
-          />
+          <Select />
         </FormControl>
         <FormControl>
 
@@ -234,13 +168,20 @@ const AddAdmission = () => {
             fontSize="14px"
             fontWeight="bold"
           >
-            SP02 (%)
+            Referral Type
           </FormLabel>
-          <Input
-            placeholder="Enter SP02"
-            // value={sp02}
-            onChange={(e) => setVitalValues({ ...vitalValues, sp02: e.target.value })}
-          />
+          <Select />
+        </FormControl>
+
+        <FormControl>
+
+          <FormLabel
+            fontSize="14px"
+            fontWeight="bold"
+          >
+            Branch
+          </FormLabel>
+          <Input />
         </FormControl>
 
         {/* save btn */}
@@ -248,7 +189,7 @@ const AddAdmission = () => {
           size="md"
           width="full"
           colorScheme="blue"
-          // onClick={() => addVitalSigns(inputValues)}
+        // onClick={() => addVitalSigns(inputValues)}
         >
           {/* {isLoading ? 'loading' : 'Save'} */}
           Save

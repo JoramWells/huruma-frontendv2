@@ -8,6 +8,8 @@ COPY package.json ./
 
 RUN yarn install
 
+RUN npx eslint --init
+
 COPY . .
 
 EXPOSE 3000
