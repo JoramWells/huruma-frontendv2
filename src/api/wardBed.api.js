@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const wardBedsApi = createApi({
   reducerPath: 'wardBedsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/ward-beds',
+    baseUrl: 'http://localhost:5001/ward-beds',
   }),
   endpoints: (builder) => ({
     getAllBeds: builder.query({

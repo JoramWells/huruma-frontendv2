@@ -8,34 +8,41 @@ import {
   HStack,
   IconButton,
   Input,
+  Tag,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import Select from 'react-select';
+import moment from 'moment';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import { useGetWardsQuery } from '../../api/ward.api';
+import { useGetAllBedsQuery } from '../../api/wardBed.api';
+import { useGetAllAdmissionCategoriesQuery } from '../../api/admissionCategory.api';
+import { useGetUsersQuery } from '../../api/users.api';
+import { useAddAdmissionMutation } from '../../api/admissions.api';
 // import { useAddVitalSignsMutation } from '../api/vitalSigns.api';
 
 const AddAdmission = () => {
   const [searchParams] = useSearchParams();
   const appointment_id = searchParams.get('appointment_id');
+  const [doctor_id, setDoctor_id] = useState('');
+  const [ward_id, setWard_id] = useState('');
+  const [bed_id, setWard_bed_id] = useState('');
+  const [admission_category_id, setAdmission_category_id] = useState('');
+  const [referralType, setReferralType] = useState('');
 
   const { id: patient_id } = useParams();
-  const [vitalValues, setVitalValues] = useState({
-    temperature: '',
-    pulseRate: '',
-    respiratoryRate: '',
-    systolic: '',
-    diastolic: '',
-    weight: '',
-    height: '',
-    bmi: '',
-    sp02: '',
-  });
+
+  const referralTypeOptions = [
+    { value: 1, label: 'REFERRAL FROM OTHER HEALTH FACILITY' },
+    { value: 2, label: 'REFERRAL TO OTHER HEALTH FACILITY' },
+    { value: 3, label: 'REFERRAL FROM COMMUNITY UNIT' },
+    { value: 4, label: 'REFERRAL TO COMMUNITY UNIT' },
+  ];
 
   const navigate = useNavigate();
 
@@ -44,7 +51,14 @@ const AddAdmission = () => {
   const inputValues = {
     patient_id,
     appointment_id,
-    ...vitalValues,
+    doctor_id: doctor_id.value,
+    ward_id: ward_id.value,
+    bed_id: bed_id.value,
+    admission_type_id: admission_category_id.value,
+    referralType,
+    hospital_id: 18,
+    admission_date: moment(new Date(), 'YYYY-MM-DD'),
+    admission_time: moment(new Date()).format('HH:mm:ss'),
   };
 
   const breadCrumbData = [
@@ -69,7 +83,38 @@ const AddAdmission = () => {
   ];
 
   const { data } = useGetWardsQuery();
-  console.log(data);
+
+  const { data: wardBedData } = useGetAllBedsQuery();
+
+  const { data: admissionCategoryData } = useGetAllAdmissionCategoriesQuery();
+
+  const { data: userData } = useGetUsersQuery();
+
+  const [addAdmission, { isLoading: admissionLoading }] = useAddAdmissionMutation();
+
+  const wardsOptions = useCallback(() => data?.map((item) => ({
+    value: item.ward_id, label: item.ward_description,
+  })), [data]);
+
+  const wardBedDataOptions = useCallback(() => wardBedData?.map((item) => ({
+    value: item.bed_id, label: item.bed_number, ward_id: item.ward_id,
+  })), [wardBedData]);
+
+  const admissionCategoryOptions = useCallback(() => admissionCategoryData?.map(
+    (item) => ({ value: item.admission_category_id, label: item.admission_category_description }),
+  ), [admissionCategoryData]);
+
+  const filterWardBeds = wardBedDataOptions()?.filter(
+    (item) => String(item.ward_id) === String(ward_id?.value),
+  );
+
+  const userDataOptions = useCallback(() => {
+    const tempData = userData?.filter((item) => item.user_type.user_type_desc
+      .toLowerCase().includes('Doctor'.toLowerCase()));
+    return tempData?.map((item) => ({
+      value: item.user_id, label: item.full_name,
+    }));
+  }, [userData]);
 
   return (
     <VStack
@@ -129,7 +174,11 @@ const AddAdmission = () => {
           >
             Select Doctor
           </FormLabel>
-          <Select />
+          <Select
+            options={userDataOptions()}
+            value={doctor_id}
+            onChange={setDoctor_id}
+          />
         </FormControl>
 
         {/* item code prefix */}
@@ -140,17 +189,41 @@ const AddAdmission = () => {
           >
             Select Ward
           </FormLabel>
-          <Select />
+          <Select
+            options={wardsOptions()}
+            onChange={(e) => setWard_id(e)}
+            value={ward_id}
+          />
         </FormControl>
 
         <FormControl>
-          <FormLabel
-            fontSize="14px"
-            fontWeight="bold"
+          <HStack
+            alignContent="flex-end"
+            alignItems="center"
           >
-            Select Bed Number
-          </FormLabel>
-          <Select />
+            <FormLabel
+              fontSize="14px"
+              fontWeight="bold"
+              pt={2}
+            >
+              Select Bed Number
+              {' '}
+            </FormLabel>
+            <Tag
+              size="sm"
+              bgColor="blue.500"
+              fontWeight="bold"
+              color="white"
+            >
+              {filterWardBeds?.length}
+            </Tag>
+          </HStack>
+
+          <Select
+            options={filterWardBeds}
+            value={bed_id}
+            onChange={setWard_bed_id}
+          />
         </FormControl>
 
         <FormControl>
@@ -160,7 +233,11 @@ const AddAdmission = () => {
           >
             Select Admission Category
           </FormLabel>
-          <Select />
+          <Select
+            options={admissionCategoryOptions()}
+            value={admission_category_id}
+            onChange={setAdmission_category_id}
+          />
         </FormControl>
         <FormControl>
 
@@ -170,7 +247,11 @@ const AddAdmission = () => {
           >
             Referral Type
           </FormLabel>
-          <Select />
+          <Select
+            options={referralTypeOptions}
+            value={referralType}
+            onChange={setReferralType}
+          />
         </FormControl>
 
         <FormControl>
@@ -189,10 +270,9 @@ const AddAdmission = () => {
           size="md"
           width="full"
           colorScheme="blue"
-        // onClick={() => addVitalSigns(inputValues)}
+          onClick={() => addAdmission(inputValues)}
         >
-          {/* {isLoading ? 'loading' : 'Save'} */}
-          Save
+          {admissionLoading ? 'loading' : 'Save'}
         </Button>
       </VStack>
     </VStack>
