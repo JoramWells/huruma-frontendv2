@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import moment from 'moment/moment';
 import { useMemo } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { FaChevronCircleDown, FaEllipsisH } from 'react-icons/fa';
 import DataTable2 from '../../components/tables/DataTable';
 import { useGetAppointmentDetailByIDQuery } from '../../api/appointments.api';
@@ -16,6 +16,8 @@ import { useGetAppointmentDetailByIDQuery } from '../../api/appointments.api';
 const AppointmentsTab = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  const { id: appointment_id } = useParams();
 
   //   get patient_id from search params
   const patient_id = searchParams.get('patient_id');
@@ -79,7 +81,12 @@ const AppointmentsTab = () => {
       >
         <Button
           size="sm"
-          onClick={() => navigate(`/add-admission/${patient_id}`)}
+          onClick={() => navigate(
+            {
+              pathname: `/add-admission/${patient_id}`,
+              search: `?appointment_id=${appointment_id}`,
+            },
+          )}
         >
           ADMIT
         </Button>

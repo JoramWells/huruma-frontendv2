@@ -31,7 +31,6 @@ import Pharmaceuticals from './layouts/Pharmaceuticals';
 import AddPharmaceuticals from './layouts/AddPharceuticals';
 import WardPrice from './layouts/WardPrices';
 import Users from './_User/layout/Users';
-import AddUser from './layouts/AddUser';
 import Privileges from './layouts/Privileges';
 import GroupPrivileges from './layouts/GroupPrivileges';
 import GroupPrivilegesDetails from './layouts/GroupPrivilegesDetail';
@@ -110,6 +109,7 @@ import AddEligibilityScreening from './_Eligibility/layouts/AddEligibilityScreen
 import Eligibility from './_Eligibility/layouts/Eligibility';
 import Hts from './_Eligibility/layouts/HTS';
 import AddAdmission from './_Admission/layouts/AddAdmission';
+import AddUser from './_User/layout/AddUser';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));

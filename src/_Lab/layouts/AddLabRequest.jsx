@@ -76,7 +76,7 @@ const AddLabRequest = () => {
     quantity,
     results_posting_locked: 'NO',
     notes: '',
-    urgent: urgency === 'URGENT' ? 'YES' : 'NO',
+    urgent: urgency.label,
   };
 
   const chargesInputValues = {

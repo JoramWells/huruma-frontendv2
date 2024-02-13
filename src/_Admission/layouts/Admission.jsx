@@ -31,15 +31,16 @@ const Admission = () => {
         cell: (props) => (
           <HStack>
             <Avatar
-              rounded="xl"
+              rounded="full"
               fontWeight="bold"
-              color="gray.700"
+              color="white"
               size="sm"
               name={props.getValue() ? `${props.getValue()?.first_name
               } ${props.getValue()?.middle_name}` : '0'}
             />
             <Text
               textTransform="uppercase"
+              fontWeight="bold"
             >
               {props.getValue() ? `${props.getValue()?.first_name
               } ${props.getValue()?.middle_name}` : '0'}
@@ -52,7 +53,7 @@ const Admission = () => {
         header: 'Admission Date',
         accessorKey: 'admission_date',
         enableSorting: false,
-        cell: (props) => <Text>{moment(new Date(props.getValue())).format('LL')}</Text>,
+        cell: (props) => <Text>{moment(new Date(props.getValue())).format('ll')}</Text>,
 
       },
       {
@@ -84,18 +85,24 @@ const Admission = () => {
 
       },
       {
+        header: 'Ward',
+        accessorKey: 'ward',
+        cell: (props) => <Text>{props.getValue()?.ward_description}</Text>,
+      },
+      {
         header: 'Bed Number',
         accessorKey: 'ward_bed',
         enableSorting: false,
         cell: (props) => (
           <VStack
-            bgColor="blue.500"
-            color="white"
-            rounded="xl"
+            // color="white"
+            rounded="lg"
             fontWeight="extrabold"
-            h={10}
-            w={10}
+            h={7}
+            w={7}
             justifyContent="center"
+            border="2px"
+            borderColor="gray.600"
           >
             <Text>{props.getValue()?.bed_number}</Text>
           </VStack>
@@ -132,7 +139,7 @@ const Admission = () => {
       },
     ],
 
-    [],
+    [navigate],
   );
 
   const subRowData = data
@@ -155,45 +162,6 @@ const Admission = () => {
       <Box bgColor="white" w="full">
         <BreadCrumbNav link="/add-admission" />
 
-        <HStack>
-          <Box>
-            <Text>
-              Paid
-            </Text>
-            <Text>34</Text>
-          </Box>
-        </HStack>
-
-        <HStack
-          w="100%"
-          justifyContent="space-between"
-          bgColor="white"
-          p={3}
-          rounded="lg"
-          mt={2}
-        >
-          <Text fontSize="xl" fontWeight="bold">
-            Admissions
-            <span style={{
-              fontSize: '18px',
-              // fontWeight: 'normal',
-              color: 'gray',
-            }}
-            >
-              {' '}
-              (
-              {subRowData?.length}
-              )
-
-            </span>
-          </Text>
-          <HStack>
-            <Button leftIcon={<FaPrint />}>Print Report</Button>
-
-            <Button leftIcon={<FaFileDownload />}>Download</Button>
-
-          </HStack>
-        </HStack>
         <Box
           w="100%"
           bgColor="white"

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   Button,
   FormControl,
@@ -10,37 +11,40 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import Select from 'react-select';
-import { addItemType } from '../_reducers/itemTypeSlice';
+import BreadCrumbNav from '../../components/BreadCrumbNav';
 
 const AddUser = () => {
   const [itemTypeName, setItemType] = useState('');
   const dispatch = useDispatch();
 
-  const { loading } = useSelector((state) => state.itemType);
-  const departmentData = useSelector((state) => state.departments.data);
-  const userTypeData = useSelector((state) => state.userType.data);
+  // const { loading } = useSelector((state) => state.itemType);
+  // const departmentData = useSelector((state) => state.departments.data);
+  // const userTypeData = useSelector((state) => state.userType.data);
 
   const inputValues = {
     itemTypeName,
   };
 
-  const departmentOptions = departmentData && departmentData.map((item) => (
-    { value: item.id, label: item.departmentName }
-  ));
+  // const departmentOptions = departmentData && departmentData.map((item) => (
+  //   { value: item.id, label: item.departmentName }
+  // ));
 
-  const userTypeOptions = userTypeData && userTypeData.map((item) => (
-    { value: item.id, label: item.userTypeName }
-  ));
+  // const userTypeOptions = userTypeData && userTypeData.map((item) => (
+  //   { value: item.id, label: item.userTypeName }
+  // ));
 
   return (
     <VStack
       w="full"
       h="100vh"
       alignItems="center"
-      justifyContent="center"
       bgColor="gray.50"
-      mt="55px"
+      mt="65px"
+      p={3}
     >
+      <BreadCrumbNav
+        addBtn={false}
+      />
       <VStack
         w="50%"
         mt={5}
@@ -78,7 +82,7 @@ const AddUser = () => {
         {/* department */}
         <FormControl>
           <FormLabel>Select Department</FormLabel>
-          <Select options={departmentOptions} />
+          <Select />
         </FormControl>
 
         {/* hospital */}
@@ -90,7 +94,7 @@ const AddUser = () => {
             <FormLabel>Select User Type</FormLabel>
             <Tag colorScheme="green">Add New</Tag>
           </HStack>
-          <Select options={userTypeOptions} />
+          <Select />
         </FormControl>
 
         <FormControl>
@@ -111,10 +115,11 @@ const AddUser = () => {
           <Button
             size="lg"
             colorScheme="blue"
-            onClick={() => dispatch(addItemType(inputValues))}
+            // onClick={() => dispatch(addItemType(inputValues))}
             w="full"
           >
-            {loading ? 'loading...' : 'Save'}
+            {/* {loading ? 'loading...' : 'Save'} */}
+            Save
           </Button>
         </HStack>
       </VStack>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
 import {
@@ -90,36 +91,6 @@ const Users = () => {
     >
       <Box bgColor="white" w="full">
         <BreadCrumbNav link="/admin-add-user" breadCrumbData={breadCrumbData} />
-        <HStack
-          w="100%"
-          justifyContent="space-between"
-          bgColor="white"
-          p={3}
-          rounded="lg"
-          mt={2}
-        >
-          <Text fontSize="xl" fontWeight="bold">
-            Users
-            <span style={{
-              fontSize: '18px',
-              // fontWeight: 'normal',
-              color: 'gray',
-            }}
-            >
-              {' '}
-              (
-              {subRowData?.length}
-              )
-
-            </span>
-          </Text>
-          <HStack>
-            <Button leftIcon={<FaPrint />}>Print Report</Button>
-
-            <Button leftIcon={<FaFileDownload />}>Download</Button>
-
-          </HStack>
-        </HStack>
         <Box
           w="100%"
           bgColor="white"
