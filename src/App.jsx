@@ -110,6 +110,7 @@ import Eligibility from './_Eligibility/layouts/Eligibility';
 import Hts from './_Eligibility/layouts/HTS';
 import AddAdmission from './_Admission/layouts/AddAdmission';
 import AddUser from './_User/layout/AddUser';
+import LabRequestsSample from './_Lab/layouts/LabRequestsSample';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -298,6 +299,7 @@ function App() {
             <Route path="/add-lab-request/:id" element={<AddLabRequest />} />
             <Route path="/internal-lab-request" element={<InternalLabRequest />} />
             <Route path="/internal-lab-request-detail/:id" element={<InternalLabRequestDetail />} />
+            <Route path="/lab-request-sample/:id" element={<LabRequestsSample />} />
 
             <Route path="/miscellaneous-charges" element={<MiscellaneousCharges />} />
 

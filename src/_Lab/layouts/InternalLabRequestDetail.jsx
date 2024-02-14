@@ -78,13 +78,14 @@ const InternalLabRequestsDetail = () => {
       cell: () => (
         <Button
           size="xs"
+          onClick={() => navigate(`/lab-request-sample/${id}`)}
         >
           Collect Sample
         </Button>
       ),
     },
 
-  ], []);
+  ], [navigate, id]);
   return (
     <VStack
       w="full"
