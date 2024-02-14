@@ -130,52 +130,6 @@ const VitalSignsAllergies = () => {
       <Box bgColor="white" w="full">
         <BreadCrumbNav link="/add-patient?type=admission" />
 
-        <HStack
-          w="full"
-          justifyContent="space-between"
-          bgColor="white"
-          p={2}
-          pl={5}
-          rounded="lg"
-          m="auto"
-        >
-          <Text
-            fontSize="16px"
-          >
-            Vital Signs
-            <span style={{
-              // fontSize: '18px',
-              // fontWeight: 'normal',
-              color: 'gray',
-            }}
-            >
-              {' '}
-              (
-              {filteredData?.length}
-              )
-
-            </span>
-          </Text>
-          <HStack>
-            <Button
-              leftIcon={<FaPrint />}
-              size="sm"
-              fontWeight="normal"
-            >
-              Print
-
-            </Button>
-
-            <Button
-              leftIcon={<FaFileDownload />}
-              size="sm"
-            >
-              Download
-
-            </Button>
-
-          </HStack>
-        </HStack>
         {filteredData?.length === 0 ? (
           <VStack
             p={2}

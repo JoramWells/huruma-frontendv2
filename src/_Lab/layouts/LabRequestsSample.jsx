@@ -4,13 +4,11 @@
 import {
   Avatar,
   Button,
-  Divider,
-  FormControl, FormLabel, HStack, IconButton, Input, Text, Textarea,
+  FormControl, FormLabel, HStack, IconButton, Input, Text,
   VStack, useToast,
 } from '@chakra-ui/react';
-import Select from 'react-select';
 import { useCallback, useEffect, useState } from 'react';
-import { FaArrowLeft, FaExclamationTriangle } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 import { useParams, useSearchParams } from 'react-router-dom';
 import moment from 'moment/moment';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
@@ -20,22 +18,8 @@ import { useGetAllMedicationCategoryQuery } from '../../_Medication/api/medicati
 import { useAddPersonalAccountChargeMutation } from '../../api/personalAccountCharges.api';
 import { useGetPatientQuery } from '../../api/patients.api';
 import CustomInput from '../../components/Forms/CustomInput';
-
-const selectStyles = {
-  control: (provided, state) => ({
-    ...provided,
-    // minHeight: '45px',
-    height: '2.5rem',
-    // backgroundColor: '#F7FAFC',
-    border: '1px solid #f0f0f0',
-    borderColor: 'gray',
-    color: 'gray.200',
-    borderRadius: '6px',
-  }),
-  input: (provided) => ({
-    ...provided,
-  }),
-};
+import CustomSelect from '../../components/Forms/CustomSelect';
+import { useGetAllPriceListItemsQuery } from '../../api/pricelListItems.api';
 
 const LabRequestsSample = () => {
   const { id } = useParams();
@@ -52,11 +36,19 @@ const LabRequestsSample = () => {
   const [quantity, setQuantity] = useState(0);
   const [prescriptionQuantity, setPrescriptionQuantity] = useState(0);
   const [prescription, setPrescription] = useState(0);
-  const [instructions, setInstructions] = useState('');
+  const [department, setDepartment] = useState('');
   const [noOfDays, setNoOfDays] = useState('');
 
   const { data: medicationCategoryData } = useGetAllMedicationCategoryQuery();
   //   const [addInternalPharmacyRequest, { isLoading }] = useAddInternalPharmacyRequestMutation();
+
+  const { data: priceListData } = useGetAllPriceListItemsQuery();
+
+  const priceListDataOptions = useCallback(() => (priceListData?.map((item) => ({
+    value: item.id, label: item.item_description,
+  }))), [priceListData]);
+  console.log(priceListDataOptions());
+
   const [addPersonalAccountCharge,
     { isLoading: isLoadingCharges }] = useAddPersonalAccountChargeMutation();
 
@@ -73,15 +65,8 @@ const LabRequestsSample = () => {
     medicationPackaging: item?.medication_packaging_type?.package_description,
   })), [data]);
 
-  const prescriptionOptions = [
-    { value: 1, label: '(QID) FOUR TIMES A DAY' },
-    { value: 2, label: 'BID (TWICE A DAY)' },
-    { value: 3, label: 'OD' },
-    { value: 4, label: 'PRN' },
-    { value: 5, label: 'STAT' },
-    { value: 6, label: 'TDS' },
-    { value: 7, label: 'TID' },
-    { value: 8, label: 'TWO TIMES A DAY' },
+  const departmentOptions = [
+    { value: 1, label: 'LABORATORY' },
   ];
 
   const toast = useToast();
@@ -209,7 +194,7 @@ const LabRequestsSample = () => {
             fontWeight="bold"
             marginRight=".5rem"
           >
-            Pharmacy Request
+            Lab Request
 
           </Text>
         </HStack>
@@ -235,49 +220,27 @@ const LabRequestsSample = () => {
               <Text
                 fontSize="18px"
                 color="gray.700"
+                fontWeight="bold"
               >
-                Medication Details
+                Specimen Sample Details
 
               </Text>
             </HStack>
             {/* <Divider /> */}
             {/*  */}
-            <FormControl>
-              <FormLabel
-                color="gray.700"
-                fontWeight="bold"
-                fontSize="14px"
-              >
-                Select Medication Category
-
-              </FormLabel>
-              <Select
-                styles={selectStyles}
-                options={categoryOptions}
-                onChange={(val) => setCategory(val)}
-              />
-            </FormControl>
+            <CustomSelect
+              label="Specimen Type"
+            />
 
             {/*  */}
-            <FormControl>
-              <FormLabel
-                fontWeight="bold"
-                color="gray.700"
-                fontSize="14px"
-              >
-                Select Medication
 
-              </FormLabel>
-              <Select
-                styles={selectStyles}
-                options={medicationOptions}
-                onChange={(val) => setMedication(val)}
-              />
-            </FormControl>
+            <CustomSelect
+              label="Result"
+            />
 
             {/*  */}
             <CustomInput
-              label="Measuring Unit"
+              label="Input"
               value={measuringUnit}
               onChange={setMeasuringUnit}
             />
@@ -286,51 +249,13 @@ const LabRequestsSample = () => {
             <FormControl>
               <FormLabel
                 fontSize="14px"
-                fontWeight="bold"
+                // fontWeight="bold"
               >
-                Price (KSH)
+                Upload File
               </FormLabel>
               <Input
-                                // size="lg"
-                type="number"
-                value={cost}
-                onChange={(e) => setCost(e.target.value)}
-                                // bgColor="gray.50"
-                                // border={0}
-                fontSize="14px"
-                fontWeight="bold"
-              />
-            </FormControl>
+                type="file"
 
-            {/*  */}
-            <FormControl>
-              <HStack
-                alignContent="center"
-                color={quantity ? 'gray.500' : 'red.400'}
-                                // bgColor="green"
-                padding="0"
-              >
-                {/* <FaExclamationTriangle /> */}
-                <FormLabel
-                                    // mt={2}
-                  fontSize="14px"
-                  fontWeight="bold"
-                >
-                  {quantity ? 'Available Quantity' : 'Not In Stock'}
-                </FormLabel>
-
-              </HStack>
-              {' '}
-              <Input
-                                // size="lg"
-                type="text"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-                                // bgColor="gray.50"
-                                // border={0}
-                fontSize="md"
-                fontWeight="bold"
-                color="gray.700"
               />
             </FormControl>
 
@@ -352,70 +277,39 @@ const LabRequestsSample = () => {
               <Text
                 fontSize="18px"
                 color="gray.700"
+                fontWeight="bold"
               >
-                Prescription Details
+                Store Items Used
 
               </Text>
             </HStack>
 
             {/*  */}
-            <FormControl>
-              <FormLabel
-                fontSize="14px"
-                fontWeight="bold"
-              >
-                Select Prescription
-              </FormLabel>
-              <Select
-                styles={selectStyles}
-                options={prescriptionOptions}
-                onChange={(val) => setPrescription(val)}
-              />
-            </FormControl>
 
-            {/*  */}
-            <FormControl>
-              <FormLabel
-                fontWeight="bold"
-                fontSize="14px"
-              >
-                Number of Days
-              </FormLabel>
-              <Input
-                                // size="lg"
-                value={noOfDays}
-                onChange={(e) => setNoOfDays(e.target.value)}
-              />
-            </FormControl>
+            <CustomSelect
+              label="Cost Center"
+              value={department}
+              onChange={setDepartment}
+              options={departmentOptions}
+            />
 
-            {/*  */}
-            <FormControl>
-              <FormLabel
-                fontWeight="bold"
-                fontSize="14px"
-              >
-                Instruction
-              </FormLabel>
-              <Textarea
-                                // cols={3}
-                rows={5}
-              />
-            </FormControl>
+            <CustomInput
+              label="Store Item Insurance Number"
+            />
 
-            {/*  */}
-            <FormControl>
-              <FormLabel
-                fontWeight="bold"
-                fontSize="14px"
-              >
-                Quantity
-              </FormLabel>
-              <Input
-                                // size="lg"
-                value={prescriptionQuantity}
-                onChange={(e) => setPrescriptionQuantity(e.target.value)}
-              />
-            </FormControl>
+            <CustomInput
+              label="Reference"
+            />
+
+            <CustomSelect
+              label="Store"
+              options={departmentOptions}
+            />
+
+            <CustomSelect
+              label="Select Item"
+              options={priceListDataOptions()}
+            />
 
           </VStack>
         </HStack>
