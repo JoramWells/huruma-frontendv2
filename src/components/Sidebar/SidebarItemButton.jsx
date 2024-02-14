@@ -19,7 +19,7 @@ const SidebarItemButton = ({
       variant="ghost"
       // boxShadow="lg"
       pl={2}
-      mt={1}
+      // mt={1}
       _hover={{
         cursor: 'pointer',
         bgColor: 'blue.800',

@@ -37,10 +37,21 @@ const SidebarListItems = () => {
           || pathname.includes('accounting-items')}
         onClick={onToggle}
         text="Accounts"
-        link="/accounts"
+        // link="/accounts"
         itemList={[
           { id: nanoid(), title: 'Items', link: '/accounting-items' },
           { id: nanoid(), title: 'Suppliers', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'General Ledger', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'General Ledger (Inclusive of Patient Invoices Yet to be finalized)', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Trial Balance', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Profit & Loss', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Profit & Loss Inclusive Of Invoices Yet to be finalized', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Profit & Loss (Month Comparison)', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Balance Sheet', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Accounts Payable Aging Report', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Accounts Payable Aging Report (Totals Only)', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Supplier Balances Report', link: '/accounting-suppliers' },
+          { id: nanoid(), title: 'Supplier Ledger Report', link: '/accounting-suppliers' },
         ]}
         icon={<FaMoneyCheck size={15} />}
       />

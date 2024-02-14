@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import {
-  Box, Collapse, HStack, useDisclosure,
+  Box, Collapse, HStack, Text, useDisclosure,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { FaChevronDown, FaChevronRight, FaUser } from 'react-icons/fa';
@@ -28,7 +28,7 @@ const SidebarItemLink = ({
           bgGradient={selected && 'linear(to-r, blue.600, blue.900)'}
           textTransform="capitalize"
           p={2}
-          mt={1}
+          // mt={1}
           _hover={{
             cursor: 'pointer',
             bgColor: 'blue.800',
@@ -38,34 +38,24 @@ const SidebarItemLink = ({
           borderLeft={selected && '4px'}
           boxShadow={selected && 'sm'}
           rounded="sm"
+          onClick={onToggle}
 
         >
           <HStack>
             {icon}
-            <Link to={link} style={{ fontSize: '14px' }}>
+            <Text style={{ fontSize: '14px' }}>
               {text}
-            </Link>
+            </Text>
           </HStack>
-          <Box
-            onClick={onToggle}
-
-          >
-            {isOpen ? (
-              <Box _hover={{
-                bgColor: 'black',
-              }}
-              >
-                <FaChevronDown
-                  size={12}
-                />
-              </Box>
-            ) : (
-              <FaChevronRight
-                size={12}
-              />
-            )}
-
-          </Box>
+          {isOpen ? (
+            <FaChevronDown
+              size={12}
+            />
+          ) : (
+            <FaChevronRight
+              size={12}
+            />
+          )}
 
         </HStack>
 
