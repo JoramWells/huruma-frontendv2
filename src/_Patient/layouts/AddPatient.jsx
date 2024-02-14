@@ -180,16 +180,18 @@ const AddPatient = () => {
   console.log(personalData, 'personal');
 
   return (
-    <VStack w="full" h="100vh" bgColor="gray.50" mt="55px">
+    <VStack w="full" h="100vh" bgColor="gray.50" mt="50px">
 
       {/* stepper navigation */}
       <StepperNav activeStep={activeStep} steps={steps} />
 
       <Box
-        w="50%"
+        w={['50%', '50%', '50%', '50%', '60%', '50%']}
         p={5}
         rounded="lg"
         bgColor="white"
+        border="1px"
+        borderColor="gray.200"
       >
 
         {/* PERSONAL DETAILS */}

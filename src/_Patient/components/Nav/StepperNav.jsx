@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
 import {
   Box, Step, StepDescription, StepIcon,
@@ -12,7 +13,7 @@ const StepperNav = ({ activeStep, steps }) => (
   <Stepper
     index={activeStep}
     mb={2}
-    w="55%"
+    w={['55%', '55%', '55%', '55%', '60%', '50%']}
     mt={5}
     rounded="lg"
     bgColor="white"
@@ -24,24 +25,30 @@ const StepperNav = ({ activeStep, steps }) => (
       <Step key={nanoid()}>
         <StepIndicator>
           <StepStatus
-            complete={<StepIcon />}
+            complete={(
+              <StepIcon />
+)}
             incomplete={<StepNumber />}
             active={<StepNumber />}
           />
         </StepIndicator>
         <Box flexShrink={0}>
           <StepTitle>
-            <Text fontSize="14px">{step.title}</Text>
+            <Text
+              fontSize={['14px', '14px', '14px', '14px', '12px', '14px']}
+            >
+              {step.title}
+            </Text>
           </StepTitle>
-          <StepDescription>
+          {/* <StepDescription>
             <Link
-              fontSize="12px"
+              fontSize={['12px', '12px', '12px', '12px', '10px', '12px']}
               to={step.link}
             >
               {step.description}
 
             </Link>
-          </StepDescription>
+          </StepDescription> */}
         </Box>
         <StepSeparator />
       </Step>

@@ -18,8 +18,8 @@ function Index({ children, display }) {
           <VStack
             alignItems="center"
             justifyContent="center"
-            w="calc(100%-240px)"
-            ml="270px"
+            w="calc(100%-200px)"
+            ml="230px"
           >
             {children}
           </VStack>

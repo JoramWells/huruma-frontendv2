@@ -15,7 +15,7 @@ const MainNav = () => (
     position="fixed"
     zIndex={10}
     w="100%"
-    h="65px"
+    h="55px"
     top={0}
     justifyContent="space-between"
     borderBottom="1px"
@@ -24,15 +24,19 @@ const MainNav = () => (
   // bgColor="blue.900"
   >
     <Text
-      fontSize="3xl"
+      fontSize={{
+        base: '3xl', sm: '3xl', md: '2xl', lg: 'xl', xl: '18px',
+      }}
       color="gray.800"
       fontWeight="bold"
     >
-      Mother Angela
+      Mother Angelah
     </Text>
 
     <HStack>
-      <IconButton>
+      <IconButton
+        size="sm"
+      >
         <FaBell />
 
       </IconButton>
@@ -47,7 +51,9 @@ const MainNav = () => (
               backgroundColor: 'teal',
             }}
           >
-            <FaUser />
+            <FaUser
+              size={12}
+            />
           </Box>
         </MenuButton>
         <MenuList>

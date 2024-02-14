@@ -9,7 +9,7 @@ const SidebarItemSubButton = ({
     <HStack
       justifyContent="flex-start"
       color={selected ? 'white' : 'gray.500'}
-      fontWeight={selected && 'semibold'}
+      // fontWeight={selected && 'semibold'}
       bgColor={selected && 'blue.800'}
       p={2}
       pl={10}

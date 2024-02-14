@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const userTypeApi = createApi({
   reducerPath: 'userTypeApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/user-type',
+    baseUrl: 'http://localhost:5001/user-type',
   }),
   endpoints: (builder) => ({
     getUserTypes: builder.query({

@@ -62,10 +62,10 @@ const Users = () => {
         // accessorKey: 'user_type',
         cell: () => (
           <VStack alignItems="flex-start">
-            <Button>Privileges</Button>
-            <Button>Purchase Orders Clearance Privileges</Button>
-            <Button>Requisitions Clearance Privileges</Button>
-            <Button>Change Assigned Branch</Button>
+            <Button size="sm">Privileges</Button>
+            <Button size="sm">Purchase Orders Clearance Privileges</Button>
+            <Button size="sm">Requisitions Clearance Privileges</Button>
+            <Button size="sm">Change Assigned Branch</Button>
           </VStack>
         ),
       },

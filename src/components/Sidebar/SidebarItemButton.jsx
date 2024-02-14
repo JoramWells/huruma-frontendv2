@@ -8,7 +8,7 @@ const SidebarItemButton = ({
   (
     <HStack
       justifyContent="flex-start"
-      fontWeight={selected && 'bold'}
+      // fontWeight={selected && 'bold'}
       borderLeft={selected && '4px'}
       color={selected ? 'white' : 'gray.400'}
       bgGradient={selected && 'linear(to-r, blue.600, blue.900)'}
@@ -18,8 +18,8 @@ const SidebarItemButton = ({
       w="full"
       variant="ghost"
       // boxShadow="lg"
-      p={2}
-      mt={3}
+      pl={2}
+      mt={1}
       _hover={{
         cursor: 'pointer',
         bgColor: 'blue.800',

@@ -16,6 +16,7 @@ const CustomInput = ({
     <Input
       name={name}
       // placeholder="Enter First Name"
+      size={['md', 'md', 'md', 'md', 'sm', 'md']}
       value={value}
       onChange={handleChange}
     />

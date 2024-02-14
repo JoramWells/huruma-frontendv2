@@ -23,12 +23,12 @@ const SidebarItemLink = ({
       <>
         <HStack
           justifyContent="space-between"
-          fontWeight="bold"
+          // fontWeight="bold"
           color={selected ? 'white' : 'gray.400'}
           bgGradient={selected && 'linear(to-r, blue.600, blue.900)'}
           textTransform="capitalize"
           p={2}
-          mt={3}
+          mt={1}
           _hover={{
             cursor: 'pointer',
             bgColor: 'blue.800',

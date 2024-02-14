@@ -152,10 +152,10 @@ const Admission = () => {
 
   return (
     <VStack
-      mt="65px"
+      mt="50px"
       w="full"
       bgColor="gray.50"
-      p={3}
+      p={2}
       h="95vh"
       position="relative"
     >

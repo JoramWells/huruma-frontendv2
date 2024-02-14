@@ -37,10 +37,14 @@ const Homepage = () => {
       h="100vh"
       bgColor="gray.50"
       p={3}
+      alignItems="flex-start"
     >
-      <VStack w="full" alignItems="flex-start">
+      <VStack
+        w="full"
+        alignItems="flex-start"
+      >
         <Text
-          fontSize="3xl"
+          fontSize="18px"
           fontWeight="semibold"
           color="gray.800"
         >

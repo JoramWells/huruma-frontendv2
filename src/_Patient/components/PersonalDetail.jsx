@@ -68,7 +68,7 @@ const PersonalDetail = ({
         setFieldValue,
       }) => (
         <form onSubmit={handleSubmit}>
-          <VStack spacing={6}>
+          <VStack spacing={[6, 6, 6, 6, 4, 6]}>
             {/* <IconButton>
               <FaSearch />
             </IconButton> */}
