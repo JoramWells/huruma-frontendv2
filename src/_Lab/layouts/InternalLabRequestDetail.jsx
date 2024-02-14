@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   Avatar,
-  Box, Button, HStack, Text, VStack,
+  Box, Button, HStack, SkeletonCircle, Text, VStack,
 } from '@chakra-ui/react';
 import moment from 'moment/moment';
 import IndeterminateCheckbox from '../../_Doctor/components/IndeterminateCheckbox';
@@ -45,15 +45,7 @@ const InternalLabRequestsDetail = () => {
       ),
     },
     {
-      header: 'Payment details',
-      cell: (props) => <Text />,
-    },
-    {
-      header: 'Requested By',
-      cell: (props) => <Text />,
-    },
-    {
-      header: 'Procedure',
+      header: 'INVESTIGATION REQ.',
       accessorKey: 'procedure_detail',
       cell: (props) => (
         <Text>
@@ -62,24 +54,34 @@ const InternalLabRequestsDetail = () => {
       ),
     },
     {
-      header: 'PAY STATUS',
-      accessorKey: 'pay_status',
-      cell: (props) => <Text>{props.getValue()}</Text>,
-    },
-    {
       header: 'Quantity',
       accessorKey: 'quantity',
       cell: (props) => <Text>{props.getValue()}</Text>,
     },
     {
-      header: 'Cost',
-      accessorKey: 'cost',
+      header: 'Urgent',
+      accessorKey: 'urgent',
       cell: (props) => <Text>{props.getValue()}</Text>,
     },
     {
-      header: 'Total',
-      //   accessorKey: 'cost',
-      cell: (props) => <Text>{props.row.original.quantity * props.row.original.cost}</Text>,
+      header: 'Status',
+      accessorKey: 'status',
+      cell: (props) => <Text>{props.getValue()}</Text>,
+    },
+    {
+      header: 'Results',
+      accessorKey: 'results',
+      cell: (props) => <Text>{props.getValue()}</Text>,
+    },
+    {
+      header: 'Action',
+      cell: () => (
+        <Button
+          size="xs"
+        >
+          Collect Sample
+        </Button>
+      ),
     },
 
   ], []);
@@ -97,13 +99,19 @@ const InternalLabRequestsDetail = () => {
         bgColor="white"
       >
         <BreadCrumbNav />
-        <Avatar
-          name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
-          size="xs"
-          boxShadow="lg"
-          color="white"
-          fontWeight="bold"
-        />
+        {data ? (
+          <Avatar
+            name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
+            size="xs"
+            h={7}
+            w={7}
+          // boxShadow="lg"
+            color="white"
+            fontWeight="bold"
+            marginRight="15px"
+          />
+        )
+          : <SkeletonCircle />}
       </HStack>
 
       <TablePharmacyRequest column={columns} data={data} />

@@ -70,7 +70,7 @@ const AddLabRequest = () => {
     user_id: 671,
     date_of_request: moment(new Date()).format('MM-DD-YYYY'),
     time_of_request: moment(new Date()).format('hh:mm:ss'),
-    status: 1,
+    status: 0,
     patient_id: patientID,
     hospital_id: 18,
     quantity,

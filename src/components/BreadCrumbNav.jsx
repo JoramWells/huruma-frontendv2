@@ -74,9 +74,9 @@ const BreadCrumbNav = ({ link, breadCrumbData, addBtn }) => {
           fontSize="12px"
           onClick={() => navigate(link)}
           // variant="link"
-          h={6}
-          p={2}
-          pt={3}
+          h={7}
+          p={3}
+          pt=".8rem"
           alignItems="center"
           display="flex"
 //           leftIcon={(
