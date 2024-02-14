@@ -92,45 +92,20 @@ const InternalLabRequestsDetail = () => {
       alignItems="center"
       p={3}
     >
-      <BreadCrumbNav />
       <HStack
-        bgColor="white"
         w="full"
-        rounded="lg"
-        p={3}
-        border="1px"
-        borderColor="gray.200"
+        bgColor="white"
       >
-        {data
-          && (
-            <>
-              <Avatar
-                name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
-                size="lg"
-                color="white"
-                fontWeight="bold"
-              />
-              <VStack alignItems="flex-start">
-                <Text
-                  fontSize="xl"
-                  fontWeight="bold"
-                  color="gray.700"
-                >
-                  {data[0]?.patient.first_name}
-                  {' '}
-                  {data[0]?.patient.middle_name}
-                </Text>
-
-                <Text fontSize="lg" color="gray.500">
-                  {moment().diff(data[0]?.patient?.dob, 'years')}
-                  {' '}
-                  years
-                </Text>
-              </VStack>
-            </>
-          )}
-
+        <BreadCrumbNav />
+        <Avatar
+          name={`${data[0]?.patient?.first_name} ${data[0]?.patient?.middle_name}`}
+          size="xs"
+          boxShadow="lg"
+          color="white"
+          fontWeight="bold"
+        />
       </HStack>
+
       <TablePharmacyRequest column={columns} data={data} />
     </VStack>
   );

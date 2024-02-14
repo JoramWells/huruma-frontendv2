@@ -19,11 +19,17 @@ import { useGetAllInternalLabRequestsQuery } from '../../api/internalLabRequests
 const UserNameAvatar = ({ fullName }) => (
   <HStack>
     <Avatar
-      size="sm"
+      size="xs"
       name={fullName}
       color="white"
+      fontWeight="bold"
     />
-    <Text>{fullName}</Text>
+    <Text
+      fontWeight="bold"
+      textTransform="uppercase"
+    >
+      {fullName}
+    </Text>
   </HStack>
 );
 
@@ -75,12 +81,12 @@ const InternalLabRequest = () => {
         header: 'Action',
         cell: (props) => (
           <Button
-            size="sm"
+            size="xs"
             color="gray.700"
             leftIcon={<FaEye />}
-            onClick={() => navigate(`/internal-lab-request-detail/${props.row.original.patient_id}`)}
+            onClick={() => navigate(`/internal-lab-request-detail/${props.row.original.lab_request_id}`)}
           >
-            Tests Requested
+            Tests
           </Button>
         ),
       },
@@ -99,46 +105,16 @@ const InternalLabRequest = () => {
 
   return (
     <VStack
-      mt="60px"
+      mt="50px"
       w="full"
       bgColor="gray.50"
       p={3}
       h="95vh"
       position="relative"
     >
+      <BreadCrumbNav link="/add-patient" />
+
       <Box bgColor="white" w="full">
-        <BreadCrumbNav link="/add-patient" />
-
-        <HStack
-          w="100%"
-          justifyContent="space-between"
-          bgColor="white"
-          p={3}
-          rounded="lg"
-          mt={2}
-        >
-          <Text fontSize="xl" fontWeight="bold">
-            Internal Lab Requests
-            <span style={{
-              fontSize: '18px',
-              // fontWeight: 'normal',
-              color: 'gray',
-            }}
-            >
-              {' '}
-              (
-              {subRowData?.length}
-              )
-
-            </span>
-          </Text>
-          <HStack>
-            <Button leftIcon={<FaPrint />}>Print Report</Button>
-
-            <Button leftIcon={<FaFileDownload />}>Download</Button>
-
-          </HStack>
-        </HStack>
         {subRowData?.length === 0 ? (
           <VStack p={5}>
 

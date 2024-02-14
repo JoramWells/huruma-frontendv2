@@ -9,7 +9,7 @@ import {
 import Select from 'react-select';
 import { useCallback, useEffect, useState } from 'react';
 import moment from 'moment/moment';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import BreadCrumbNav from '../../components/BreadCrumbNav';
 import { useGetProceduresQuery } from '../../_Procedure/api/procedureDetails.api';
@@ -102,25 +102,27 @@ const AddLabRequest = () => {
     addPersonalAccountCharge(chargesInputValues);
   };
 
+  const navigate = useNavigate();
+
   return (
     <VStack
       w="full"
       h="100vh"
-      mt="65px"
-      p={3}
+      mt="55px"
+      p={2}
     >
       <BreadCrumbNav addBtn={false} />
 
       <VStack
-        w="2xl"
+        w="40%"
         rounded="xl"
         p={4}
         alignItems="flex-start"
         bgColor="white"
         spacing={6}
                 // boxShadow="lg"
-        border="2px"
-        borderStyle="dashed"
+        border="1px"
+        // borderStyle="dashed"
         borderColor="gray.200"
       >
         <HStack
@@ -130,13 +132,14 @@ const AddLabRequest = () => {
         >
           <IconButton
             size="sm"
+            onClick={() => navigate(-1)}
           >
             <FaArrowLeft />
           </IconButton>
           <Text
             fontSize="16px"
             fontWeight="bold"
-            color="gray.700"
+            // color="gray.700"
           >
             New Lab Test
 
@@ -146,7 +149,7 @@ const AddLabRequest = () => {
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
-            color="gray.500"
+            // color="gray.500"
           >
             Select/Search Lab Test
 
@@ -165,7 +168,7 @@ const AddLabRequest = () => {
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
-            color="gray.500"
+            // color="gray.500"
           >
             Select Urgency
 
@@ -183,15 +186,15 @@ const AddLabRequest = () => {
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
-            color="gray.500"
+            // color="gray.500"
           >
             Cost
 
           </FormLabel>
           <Input
             // size="lg"
-            bgColor="gray.50"
-            border={0}
+            // bgColor="gray.50"
+            // border={0}
             value={cost}
             onChange={(e) => setCost(e.target.value)}
           />
@@ -202,34 +205,32 @@ const AddLabRequest = () => {
           <FormLabel
             fontSize="14px"
             fontWeight="bold"
-            color="gray.500"
+            // color="gray.500"
           >
             Quantity
 
           </FormLabel>
           <Input
             // size="lg"
-            bgColor="gray.50"
-            border={0}
+            // bgColor="gray.50"
+            // border={0}
             value={quantity}
             type="number"
             onChange={(e) => setQuantity(e.target.value)}
           />
         </FormControl>
-        <HStack
-          w="full"
-          justifyContent="flex-end"
+
+        <Button
+          colorScheme="blue"
+          size="sm"
+          onClick={() => handleSubmit(inputValues)}
+          width="full"
+          height="40px"
         >
-          <Button
-            colorScheme="blue"
-            size="sm"
-            onClick={() => handleSubmit(inputValues)}
-          >
-            {isLoading ? 'loading...' : 'Save'}
+          {isLoading ? 'loading...' : 'Save'}
 
-          </Button>
+        </Button>
 
-        </HStack>
       </VStack>
 
     </VStack>

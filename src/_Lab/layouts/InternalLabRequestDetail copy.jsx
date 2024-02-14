@@ -24,41 +24,20 @@ const InternalLabRequestDetail = () => {
       mt="65px"
       p={3}
     >
-      <BreadCrumbNav />
+      <HStack
+        w="full"
+      >
+        <BreadCrumbNav />
+        <Avatar
+          size="md"
+          name={`${data?.patient?.first_name} ${data?.patient?.middle_name}`}
+        />
+      </HStack>
       <HStack
         w="full"
         spacing={4}
         justifyContent="center"
       >
-        <VStack
-          w="md"
-          bgColor="white"
-          h="350px"
-          border="1px"
-          borderColor="gray.200"
-          rounded="xl"
-          p={3}
-          spacing={0}
-        >
-          <Avatar
-            size="md"
-            name={`${data?.patient?.first_name} ${data?.patient?.middle_name}`}
-          />
-          <Text
-            mt={1}
-            fontWeight="bold"
-            fontSize="14px"
-          >
-            {data?.patient?.first_name}
-            {' '}
-            {data?.patient?.middle_name}
-          </Text>
-          <Text
-            fontSize="12px"
-          >
-            Outpatient FIle No.
-          </Text>
-        </VStack>
 
         {/* Appointment */}
         <VStack

@@ -15,18 +15,19 @@ const BreadCrumbNav = ({ link, breadCrumbData, addBtn }) => {
       <HStack
         w="100%"
         bgColor="white"
-        h={14}
+        h={12}
         justifyContent="space-between"
         // rounded="lg"
         borderBottom="1px"
         borderBottomColor="gray.100"
         paddingLeft="15px"
+        paddingRight="15px"
 
         // boxShadow="sm"
       >
         <Breadcrumb separator={(
           <FaChevronRight
-            size={12}
+            size={10}
             color="gray"
           />
               )}
@@ -34,10 +35,10 @@ const BreadCrumbNav = ({ link, breadCrumbData, addBtn }) => {
           <BreadcrumbItem>
             <IconButton
               onClick={() => navigate('/')}
-              size="sm"
+              size="xs"
             >
               <FaHome
-                size={14}
+                // size={12}
                 color="gray"
               />
             </IconButton>
@@ -48,12 +49,13 @@ const BreadCrumbNav = ({ link, breadCrumbData, addBtn }) => {
               onClick={() => navigate(item.link)}
               isCurrentPage={item.isCurrentPage}
               color="gray"
+              // fontSize="12px"
             >
               <BreadcrumbLink
-                fontSize="14px"
+                fontSize="12px"
                 color={item.isCurrentPage && 'blue.500'}
                 bgColor={item.isCurrentPage && 'blue.50'}
-                p={2}
+                p={1}
                 rounded="lg"
               >
                 {item.title}
@@ -67,11 +69,23 @@ const BreadCrumbNav = ({ link, breadCrumbData, addBtn }) => {
         <Button
           colorScheme="green"
           size="sm"
-          boxShadow="lg"
+          // p={1}
+          // boxShadow="lg"
+          fontSize="12px"
           onClick={() => navigate(link)}
-          leftIcon={<FaPlus />}
+          // variant="link"
+          h={6}
+          p={2}
+          pt={3}
+          alignItems="center"
+          display="flex"
+//           leftIcon={(
+//             <FaPlus
+//               size={10}
+//             />
+// )}
         >
-          NEW
+          ADD
 
         </Button>
         )}
