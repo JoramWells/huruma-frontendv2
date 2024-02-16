@@ -112,6 +112,7 @@ import AddAdmission from './_Admission/layouts/AddAdmission';
 import AddUser from './_User/layout/AddUser';
 import LabRequestsSample from './_Lab/layouts/LabRequestsSample';
 import CostCentre from './_CostCentre/layouts/CostCentre';
+import AddCostCentre from './_CostCentre/layouts/AddCostCentre';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -233,6 +234,7 @@ function App() {
 
             <Route path="/accounting-suppliers" element={<AccountingSuppliers />} />
             <Route path="/accounting-items" element={<AccountingItem />} />
+            <Route path="/register-cost-centre" element={<AddCostCentre />} />
 
             <Route path="/bed-allocation" element={<DoctorAdmissionBedAllocation />} />
 

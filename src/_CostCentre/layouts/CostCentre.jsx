@@ -77,7 +77,7 @@ const CostCentre = () => {
               })}
               textTransform="uppercase"
             >
-              See Patient
+              View Details
             </Button>
           </HStack>
         ),
