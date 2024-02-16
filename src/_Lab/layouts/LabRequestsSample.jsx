@@ -20,10 +20,16 @@ import { useGetPatientQuery } from '../../api/patients.api';
 import CustomInput from '../../components/Forms/CustomInput';
 import CustomSelect from '../../components/Forms/CustomSelect';
 import { useGetAllPriceListItemsQuery } from '../../api/pricelListItems.api';
+import { useGetAllAccountingCostCentresQuery } from '../../api/accounts/accountingCostCentre.api';
 
 const LabRequestsSample = () => {
   const { id } = useParams();
   const { data } = useGetAllMedicationQuery();
+  const {
+    data: costCentreData,
+    isLoading: costCentreLoading,
+  } = useGetAllAccountingCostCentresQuery();
+
   const [medication, setMedication] = useState({
     value: '',
     label: '',
@@ -47,7 +53,6 @@ const LabRequestsSample = () => {
   const priceListDataOptions = useCallback(() => (priceListData?.map((item) => ({
     value: item.id, label: item.item_description,
   }))), [priceListData]);
-  console.log(priceListDataOptions());
 
   const [addPersonalAccountCharge,
     { isLoading: isLoadingCharges }] = useAddPersonalAccountChargeMutation();
@@ -68,6 +73,10 @@ const LabRequestsSample = () => {
   const departmentOptions = [
     { value: 1, label: 'LABORATORY' },
   ];
+
+  const costCentreOptions = useCallback(() => costCentreData?.map((item) => ({
+    value: item.cost_centre_id, label: item.cost_centre_description,
+  })), [costCentreData]);
 
   const toast = useToast();
   const displayToast = useCallback(() => (
@@ -290,7 +299,7 @@ const LabRequestsSample = () => {
               label="Cost Center"
               value={department}
               onChange={setDepartment}
-              options={departmentOptions}
+              options={costCentreOptions()}
             />
 
             <CustomInput

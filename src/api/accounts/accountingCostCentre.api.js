@@ -1,32 +1,32 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const accountTypeApi = createApi({
-  reducerPath: 'accountTypeApi',
+export const accountingCostCentreApi = createApi({
+  reducerPath: 'accountingCostCentreApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5010/account-type',
+    baseUrl: 'http://localhost:5010/cost-centre',
   }),
   endpoints: (builder) => ({
-    getAllAccountTypes: builder.query({
+    getAllAccountingCostCentres: builder.query({
       query: () => 'fetchAll',
     }),
-    addAccountType: builder.mutation({
+    addAccountingCostCentre: builder.mutation({
       query: (newUser) => ({
         url: 'add',
         method: 'POST',
         body: newUser,
       }),
     }),
-    getAccountType: builder.query({
+    getAccountingCostCentre: builder.query({
       query: (id) => `detail/${id}`,
     }),
-    updateAccountType: builder.mutation({
+    updateAccountingCostCentre: builder.mutation({
       query: ({ id, ...patch }) => ({
         url: `update${id}`,
         method: 'PUT',
         body: patch,
       }),
     }),
-    deleteAccountType: builder.mutation({
+    deleteAccountingCostCentre: builder.mutation({
       query(id) {
         return {
           url: `delete${id}`,
@@ -38,7 +38,7 @@ export const accountTypeApi = createApi({
 });
 
 export const {
-  useGetAllAccountTypesQuery, useAddAccountTypeMutation,
-  useGetAccountTypeQuery,
-  useUpdateAccountTypeMutation, useDeleteAccountTypeMutation,
-} = accountTypeApi;
+  useGetAllAccountingCostCentresQuery, useAddAccountingCostCentreMutation,
+  useGetAccountingCostCentreQuery,
+  useUpdateAccountingCostCentreMutation, useDeleteAccountingCostCentreMutation,
+} = accountingCostCentreApi;
