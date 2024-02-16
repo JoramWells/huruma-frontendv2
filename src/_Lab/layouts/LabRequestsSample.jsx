@@ -21,6 +21,8 @@ import CustomInput from '../../components/Forms/CustomInput';
 import CustomSelect from '../../components/Forms/CustomSelect';
 import { useGetAllPriceListItemsQuery } from '../../api/pricelListItems.api';
 import { useGetAllAccountingCostCentresQuery } from '../../api/accounts/accountingCostCentre.api';
+import { useGetAllAccountingStoresQuery } from '../../api/accounts/accountingStore.api';
+import { useGetAllSpecimenTypesQuery } from '../api/specimenType.api';
 
 const LabRequestsSample = () => {
   const { id } = useParams();
@@ -29,6 +31,8 @@ const LabRequestsSample = () => {
     data: costCentreData,
     isLoading: costCentreLoading,
   } = useGetAllAccountingCostCentresQuery();
+
+  const { data: storeData } = useGetAllAccountingStoresQuery();
 
   const [medication, setMedication] = useState({
     value: '',
@@ -49,6 +53,7 @@ const LabRequestsSample = () => {
   //   const [addInternalPharmacyRequest, { isLoading }] = useAddInternalPharmacyRequestMutation();
 
   const { data: priceListData } = useGetAllPriceListItemsQuery();
+  const { data: specimenTypeData } = useGetAllSpecimenTypesQuery();
 
   const priceListDataOptions = useCallback(() => (priceListData?.map((item) => ({
     value: item.id, label: item.item_description,
@@ -77,6 +82,14 @@ const LabRequestsSample = () => {
   const costCentreOptions = useCallback(() => costCentreData?.map((item) => ({
     value: item.cost_centre_id, label: item.cost_centre_description,
   })), [costCentreData]);
+
+  const storeOptions = useCallback(() => storeData?.map((item) => ({
+    value: item.hospital_store_id, label: item.store_description,
+  })), [storeData]);
+
+  const specimenTypeOptions = useCallback(() => specimenTypeData?.map((item) => ({
+    value: item.specimen_type_id, label: item.specimen_type_description,
+  })), [specimenTypeData]);
 
   const toast = useToast();
   const displayToast = useCallback(() => (
@@ -153,6 +166,8 @@ const LabRequestsSample = () => {
     // addInternalPharmacyRequest(inputValues);
     addPersonalAccountCharge(chargesInputValues);
   };
+
+  console.log(specimenTypeOptions());
 
   return (
     <VStack
@@ -239,6 +254,7 @@ const LabRequestsSample = () => {
             {/*  */}
             <CustomSelect
               label="Specimen Type"
+              options={specimenTypeOptions()}
             />
 
             {/*  */}
@@ -312,7 +328,7 @@ const LabRequestsSample = () => {
 
             <CustomSelect
               label="Store"
-              options={departmentOptions}
+              options={storeOptions()}
             />
 
             <CustomSelect

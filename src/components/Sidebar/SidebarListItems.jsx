@@ -6,7 +6,7 @@ import {
   FaFirstAid,
   FaHome, FaHospitalAlt, FaListOl, FaMoneyBill, FaMoneyCheck, FaPills,
   FaProcedures,
-  FaRadiation, FaRegMoneyBillAlt,
+  FaRadiation, FaRegCheckCircle, FaRegMoneyBillAlt,
   FaStore, FaToolbox, FaTools, FaTrain, FaUser, FaUserNurse,
 } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -121,6 +121,20 @@ const SidebarListItems = () => {
           { id: nanoid(), title: 'HTS', link: '/hts' },
         ]}
         icon={<FaFirstAid size={15} />}
+      />
+
+      {/*  */}
+      <SidebarItemLink
+        selected={pathname === '/register-cost-centre'
+          || pathname.includes('/view-cost-centre')}
+        onClick={onToggle}
+        text="Cost Centre"
+        // link="/ccc"
+        itemList={[
+          { id: nanoid(), title: 'Register', link: '/register-cost-centre' },
+          { id: nanoid(), title: 'View', link: '/view-cost-centre' },
+        ]}
+        icon={<FaRegCheckCircle size={15} />}
       />
 
       <SidebarItemLink
