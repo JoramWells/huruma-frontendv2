@@ -28,7 +28,7 @@ const Privileges = () => {
 
   useEffect(() => {
     dispatch(getAllPrivileges());
-  }, []);
+  }, [dispatch]);
   return (
     <VStack mt={10} w="full">
 
