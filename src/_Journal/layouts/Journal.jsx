@@ -62,7 +62,7 @@ const Journal = () => {
       // },
     ],
 
-    [navigate],
+    [],
   );
 
   return (
