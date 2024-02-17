@@ -165,7 +165,6 @@ const SidebarListItems = () => {
         itemList={[
           { id: nanoid(), title: 'New Entry', link: '/new-journal-entry' },
           { id: nanoid(), title: 'Journal', link: '/journals' },
-          { id: nanoid(), title: 'Types', link: '/hospital-types' },
         ]}
         icon={<FaHospitalAlt size={15} />}
       />
