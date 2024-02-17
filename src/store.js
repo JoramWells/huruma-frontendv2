@@ -49,6 +49,7 @@ import { accountingStoresApi } from './api/accounts/accountingStore.api';
 import { accountingCostCentreApi } from './api/accounts/accountingCostCentre.api';
 import { specimenTypeApi } from './_Lab/api/specimenType.api';
 import { accountingDepartmentApi } from './api/accounts/accountingDepartment.api';
+import { accountingJournalApi } from './api/accounts/accountingJournal.api';
 
 export const store = configureStore({
   reducer: {
@@ -101,6 +102,7 @@ export const store = configureStore({
     [accountingCostCentreApi.reducerPath]: accountingCostCentreApi.reducer,
     [accountingStoresApi.reducerPath]: accountingStoresApi.reducer,
     [accountingDepartmentApi.reducerPath]: accountingDepartmentApi.reducer,
+    [accountingJournalApi.reducerPath]: accountingJournalApi.reducer,
     [specimenTypeApi.reducerPath]: specimenTypeApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
@@ -153,6 +155,7 @@ export const store = configureStore({
     .concat(accountingCostCentreApi.middleware)
     .concat(accountingStoresApi.middleware)
     .concat(accountingDepartmentApi.middleware)
+    .concat(accountingJournalApi.middleware)
     .concat(specimenTypeApi.middleware)
   ,
 });

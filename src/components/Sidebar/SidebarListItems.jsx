@@ -158,6 +158,19 @@ const SidebarListItems = () => {
       />
 
       <SidebarItemLink
+        selected={pathname === '/new-journal-entry'}
+        onClick={onToggle}
+        text="General Journal"
+        link="/hospitals"
+        itemList={[
+          { id: nanoid(), title: 'New Entry', link: '/new-journal-entry' },
+          { id: nanoid(), title: 'Journal', link: '/journals' },
+          { id: nanoid(), title: 'Types', link: '/hospital-types' },
+        ]}
+        icon={<FaHospitalAlt size={15} />}
+      />
+
+      <SidebarItemLink
         selected={pathname === '/hospitals'
           || pathname.includes('/hospital-clinics')
           || pathname.includes('/hospital-stores')

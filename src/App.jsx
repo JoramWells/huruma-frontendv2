@@ -114,6 +114,8 @@ import LabRequestsSample from './_Lab/layouts/LabRequestsSample';
 import CostCentre from './_CostCentre/layouts/CostCentre';
 import AddCostCentre from './_CostCentre/layouts/AddCostCentre';
 import IssueItemsCostCenter from './_Stores/layouts/IssueItemsCostCenter';
+import AddJournal from './_Journal/layouts/AddJournal';
+import Journal from './_Journal/layouts/Journal';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -387,6 +389,9 @@ function App() {
 
             <Route path="/stores" element={<Stores />} />
             <Route path="/issue-items-cost-center" element={<IssueItemsCostCenter />} />
+
+            <Route path="/new-journal-entry" element={<AddJournal />} />
+            <Route path="/journals" element={<Journal />} />
 
             <Route path="/payroll-deductions" element={<PayrollDeductions />} />
             <Route path="/payroll-employee-earnings" element={<PayrollEarnings />} />
