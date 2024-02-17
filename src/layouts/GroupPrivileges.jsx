@@ -60,7 +60,7 @@ const GroupPrivileges = () => {
 
   useEffect(() => {
     dispatch(getAllGroupPrivileges());
-  }, []);
+  }, [dispatch]);
   return (
     <VStack mt={10} w="full">
 

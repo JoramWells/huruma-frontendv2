@@ -11,7 +11,7 @@ const DepartmentDetail = () => {
 
   useEffect(() => {
     dispatch(getDepartmentDetail(id));
-  }, []);
+  }, [dispatch, id]);
   return (
     <VStack
       w="full"

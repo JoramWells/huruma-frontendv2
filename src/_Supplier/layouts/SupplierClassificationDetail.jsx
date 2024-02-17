@@ -13,7 +13,7 @@ const SupplierClassificationDetail = () => {
 
   useEffect(() => {
     dispatch(getClassificationSupplierDetail(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   console.log(data);
 

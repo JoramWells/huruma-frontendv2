@@ -15,7 +15,7 @@ const PriceListDetail = () => {
 
   const fetchData = useCallback(() => {
     dispatch(getPriceListDetail(id));
-  }, []);
+  }, [dispatch, id]);
   useEffect(() => {
     fetchData();
   }, [fetchData]);

@@ -59,7 +59,7 @@ const AppointmentDetail = () => {
 
   useEffect(() => {
     dispatch(getAppointmentDetail(id));
-  }, []);
+  }, [dispatch, id]);
 
   // const results = useFetchApi(`http://localhost:5000/patient/detail/${data.patient_id}`);
   console.log(data);

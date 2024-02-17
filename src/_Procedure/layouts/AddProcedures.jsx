@@ -37,7 +37,7 @@ const AddProcedures = () => {
 
   useEffect(() => {
     dispatch(getAllProcedureGroups());
-  }, []);
+  }, [dispatch]);
 
   return (
     <VStack

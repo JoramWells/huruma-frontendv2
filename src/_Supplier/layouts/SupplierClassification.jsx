@@ -40,7 +40,7 @@ const SupplierClassification = () => {
       },
     ],
 
-    [],
+    [navigate],
   );
 
   const subrowData = data

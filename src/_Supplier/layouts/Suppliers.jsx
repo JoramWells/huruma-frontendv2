@@ -57,7 +57,7 @@ const Suppliers = () => {
       },
     ],
 
-    [],
+    [navigate],
   );
 
   const subrowData = data

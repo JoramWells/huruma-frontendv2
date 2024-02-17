@@ -146,7 +146,7 @@ const PatientQueueNursingStation = () => {
       },
     ],
 
-    [],
+    [navigate],
   );
 
   const subRowData = data

@@ -50,7 +50,7 @@ const AddSuppliers = () => {
 
   useEffect(() => {
     dispatch(getAllSupplierClassification());
-  }, []);
+  }, [dispatch]);
 
   return (
     <VStack

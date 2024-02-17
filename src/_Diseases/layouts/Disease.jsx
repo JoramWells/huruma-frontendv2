@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
 import {
@@ -43,7 +44,7 @@ const Disease = () => {
       },
     ],
 
-    [navigate],
+    [],
   );
 
   const subRowData = data

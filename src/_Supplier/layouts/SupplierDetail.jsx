@@ -47,7 +47,7 @@ const SupplierDetail = () => {
     // }
     dispatch(getSupplierDetail(id));
     dispatch(getAllSupplierClassification());
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <VStack

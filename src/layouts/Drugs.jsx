@@ -27,7 +27,7 @@ const Drugs = () => {
 
   useEffect(() => {
     dispatch(getAllDrugs());
-  }, []);
+  }, [dispatch]);
   return (
     <VStack mt={10} w="full">
 

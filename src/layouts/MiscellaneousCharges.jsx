@@ -68,7 +68,7 @@ const MiscellaneousCharges = () => {
       },
     ],
 
-    [],
+    [navigate],
   );
 
   const subrowData = data

@@ -59,7 +59,7 @@ const PriceListItems = () => {
 
   useEffect(() => {
     dispatch(getAllPriceListItems());
-  }, []);
+  }, [dispatch]);
 
   return (
     <VStack mt={10} w="full">

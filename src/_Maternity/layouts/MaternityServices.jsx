@@ -82,7 +82,7 @@ const MaternityServices = () => {
       },
     ],
 
-    [],
+    [navigate],
   );
 
   const subrowData = data
