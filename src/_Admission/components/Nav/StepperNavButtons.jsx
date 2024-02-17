@@ -17,7 +17,6 @@ const StepperNavButtons = ({
     <Button
       type="submit"
       size="sm"
-      // rightIcon={<Fa}
     >
       Next
 
