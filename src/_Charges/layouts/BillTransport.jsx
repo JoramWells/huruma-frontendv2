@@ -20,8 +20,6 @@ const BillTransport = () => {
     data, error, isLoading, isFetching, isSuccess,
   } = useGetAppointmentsQuery();
 
-  console.log(data);
-
   const columns = useMemo(
     () => [
       {
