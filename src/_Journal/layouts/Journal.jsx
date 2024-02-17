@@ -29,73 +29,28 @@ const Journal = () => {
   const columnsx = useMemo(
     () => [
       {
-        header: 'PAYMENT DETAILS',
-        accessorKey: 'insurance_detail',
+        header: 'ACCOUNT',
+        accessorKey: 'accounting_account_detail',
         enableSorting: false,
-        cell: (props) => <Text>{props.getValue() ? props.getValue()?.insurance_name : 'CASH'}</Text>,
+        cell: (props) => <Text>{props.getValue() ? props.getValue()?.account_name : 'CASH'}</Text>,
 
       },
       {
-        header: 'Eligibility',
-        // accessorKey: 'tem',
-        cell: (props) => (
-          <Box>
-            <Button
-              variant="ghost"
-                  // bgColor={}
-              // colorScheme="orange"
-              size="xs"
-              onClick={() => navigate({
-                pathname: `/add-eligibility-screening/${props.row.original.patient_id}`,
-                search: `?appointment_id=${props.row.original.appointment_id}`,
-              })}
-            >
-              RECORD
-            </Button>
-          </Box>
-        ),
+        header: 'Description',
+        accessorKey: 'description',
+        cell: (props) => (<Text>{props.getValue()}</Text>),
 
       },
       {
-        header: 'Vital Signs',
-        // accessorKey: 'tem',
-        cell: (props) => (
-          <Box>
-            {!props.row.original.temperature
-              ? (
-                <Button
-                  variant="ghost"
-                  // bgColor={}
-                  colorScheme="orange"
-                  size="xs"
-                  onClick={() => navigate(`/add-vitals/${props.row.original.patient_id}`)}
-                >
-                  RECORD
-                </Button>
-              ) : <Button size="xs" colorScheme="green" variant="ghost">RECORDED</Button>}
-          </Box>
-        ),
+        header: 'Debit',
+        accessorKey: 'debit',
+        cell: (props) => (<Text>{parseFloat(props.getValue()).toLocaleString()}</Text>),
 
       },
       {
-        header: 'Action',
-        cell: (props) => (
-          <HStack justifyContent="flex-start" alignItems="flex-start">
-            <Button
-              // variant="outline"
-              color="gray.700"
-              // borderColor="gray.700"
-              size="xs"
-              onClick={() => navigate({
-                pathname: `/doctor/${props.row.original.appointment_id}`,
-                search: `?patient_id=${props.row.original.patient_id}`,
-              })}
-              textTransform="uppercase"
-            >
-              See Patient
-            </Button>
-          </HStack>
-        ),
+        header: 'Credit',
+        accessorKey: 'credit',
+        cell: (props) => (<Text>{parseFloat(props.getValue()).toLocaleString()}</Text>),
       },
       // {
       //   header: 'act',
