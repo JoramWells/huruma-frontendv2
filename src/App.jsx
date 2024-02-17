@@ -23,7 +23,7 @@ import AddItem from './layouts/AddItem';
 // import AddItemType from './layouts/AddItemType';
 import PriceListItems from './layouts/PriceListItems';
 import ItemType from './layouts/ItemType';
-import Stores from './layouts/Stores';
+import Stores from './_Stores/layouts/Stores';
 import Departments from './layouts/Departments';
 import AddDepartment from './layouts/AddDepartment';
 import DepartmentDetail from './layouts/DepartmentDetail';
@@ -113,6 +113,7 @@ import AddUser from './_User/layout/AddUser';
 import LabRequestsSample from './_Lab/layouts/LabRequestsSample';
 import CostCentre from './_CostCentre/layouts/CostCentre';
 import AddCostCentre from './_CostCentre/layouts/AddCostCentre';
+import IssueItemsCostCenter from './_Stores/layouts/IssueItemsCostCenter';
 
 // Medication
 const MedicationCategory = lazy(() => import('./_Medication/layouts/MedicationCategory'));
@@ -385,6 +386,7 @@ function App() {
             <Route path="/ward-type" element={<WardType />} />
 
             <Route path="/stores" element={<Stores />} />
+            <Route path="/issue-items-cost-center" element={<IssueItemsCostCenter />} />
 
             <Route path="/payroll-deductions" element={<PayrollDeductions />} />
             <Route path="/payroll-employee-earnings" element={<PayrollEarnings />} />

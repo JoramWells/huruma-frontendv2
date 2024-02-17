@@ -22,9 +22,9 @@ import CustomSelect from '../../components/Forms/CustomSelect';
 import { useGetAllPriceListItemsQuery } from '../../api/pricelListItems.api';
 import { useGetAllAccountingCostCentresQuery } from '../../api/accounts/accountingCostCentre.api';
 import { useGetAllAccountingStoresQuery } from '../../api/accounts/accountingStore.api';
-import { useGetAllSpecimenTypesQuery } from '../api/specimenType.api';
+import { useGetAllSpecimenTypesQuery } from '../../_Lab/api/specimenType.api';
 
-const LabRequestsSample = () => {
+const IssueItemsCostCentre = () => {
   const { id } = useParams();
   const { data } = useGetAllMedicationQuery();
   const {
@@ -171,6 +171,8 @@ const LabRequestsSample = () => {
     addPersonalAccountCharge(chargesInputValues);
   };
 
+  console.log(priceListData);
+
   return (
     <VStack
       h="100vh"
@@ -231,64 +233,6 @@ const LabRequestsSample = () => {
           justifyContent="center"
         >
 
-          <VStack
-            w="50%"
-                        // bgColor="red"
-            border="1px"
-            spacing={6}
-            p={2}
-            rounded="md"
-            borderColor="gray.200"
-          >
-            <HStack
-              w="full"
-            >
-              <Text
-                fontSize="18px"
-                color="gray.700"
-                fontWeight="bold"
-              >
-                Specimen Sample Details
-
-              </Text>
-            </HStack>
-            {/* <Divider /> */}
-            {/*  */}
-            <CustomSelect
-              label="Specimen Type"
-              options={specimenTypeOptions()}
-            />
-
-            {/*  */}
-
-            <CustomSelect
-              label="Result"
-              options={resultOptions}
-            />
-
-            {/*  */}
-            <CustomInput
-              label="Input"
-              value={measuringUnit}
-              onChange={setMeasuringUnit}
-            />
-
-            {/*  */}
-            <FormControl>
-              <FormLabel
-                fontSize="14px"
-                // fontWeight="bold"
-              >
-                Upload File
-              </FormLabel>
-              <Input
-                type="file"
-
-              />
-            </FormControl>
-
-          </VStack>
-
           {/*  */}
           <VStack
             w="50%"
@@ -307,7 +251,7 @@ const LabRequestsSample = () => {
                 color="gray.700"
                 fontWeight="bold"
               >
-                Store Items Used
+                Store Items Issuance
 
               </Text>
             </HStack>
@@ -334,12 +278,53 @@ const LabRequestsSample = () => {
               options={storeOptions()}
             />
 
+          </VStack>
+
+          {/*  */}
+          <VStack
+            w="50%"
+                      // bgColor="red"
+            border="1px"
+            spacing={6}
+            p={2}
+            rounded="md"
+            borderColor="gray.200"
+          >
+            <HStack
+              w="full"
+            >
+              <Text
+                fontSize="18px"
+                color="gray.700"
+                fontWeight="bold"
+              >
+                Specimen Sample Details
+
+              </Text>
+            </HStack>
+            {/* <Divider /> */}
+            {/*  */}
+
             <CustomSelect
               label="Select Item"
               options={priceListDataOptions()}
             />
 
+            {/*  */}
+            <CustomInput
+              label="Cost"
+            />
+
+            <CustomInput
+              label="Quantity"
+            />
+
+            <CustomInput
+              label="Description"
+            />
+
           </VStack>
+
         </HStack>
         <VStack
                     // p="10px"
@@ -364,4 +349,4 @@ const LabRequestsSample = () => {
   );
 };
 
-export default LabRequestsSample;
+export default IssueItemsCostCentre;

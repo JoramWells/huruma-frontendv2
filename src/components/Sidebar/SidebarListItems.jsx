@@ -404,7 +404,8 @@ const SidebarListItems = () => {
         text="Stores"
         link="/stores"
         itemList={[
-          { id: nanoid(), title: 'General Store', link: '/general-store' },
+          { id: nanoid(), title: 'View Stores', link: '/stores' },
+          { id: nanoid(), title: 'Issue Items to Cost Center', link: '/issue-items-cost-center' },
           { id: nanoid(), title: 'Pharmaceutical', link: '/pharmaceuticals' },
           { id: nanoid(), title: 'Non Pharmaceutical', link: '/non-pharmaceuticals' },
 
